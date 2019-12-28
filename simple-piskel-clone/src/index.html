@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simple-piskel-clone</title>
+   
+</head>
+<body>
+    <header class="header">
+        <div class="header__nav">
+            <h1 class="header__head">Simple-piskel-clone</h1>
+        </div>
+    </header>
+    <section class="menu">
+        <div class="menu__main">
+            <div class="menu__default menu__default--height">
+                <button class="button__element" id="bucket">
+                    <img class = "icons" src="./assets/icons/icon-bucket.svg" alt="bucket">
+                    Paint bucket
+                </button>
+                <button  class="button__element" id ="pen">
+                    <img class = "icons" src="./assets/icons/icon-pen.svg" alt="pen">
+                    Pen
+                </button>
+                <button class="button__element" id="eraser"> 
+                    <img class = "icons" src="./assets/icons/icon-eraser.svg" alt="eraser">
+                    Eraser
+                </button>
+                <button class="button__element" id="stroke"> 
+                    <img class = "icons icon-stroke" src="./assets/icons/icon-stroke.png" alt="stroke">
+                    Stroke
+                </button>
+                <button class="button__element"  id="clear">
+                    <img class = "icons" src="./assets/icons/icon-clear.svg" alt="clear">
+                    Clear
+                </button>
+            </div>
+            <div class="menu__default">
+                <ul class="list">
+                    <li class="list__element" id="current-color">
+                        <input type="color" value="#009900"  id="select-color">
+                        <span class="list__element-name">Current color</span>
+                    </li>
+                    <li class="list__element" id="prev-color">
+                        <div class="list__element-color" id="change-color"></div>
+                        <span class="list__element-name">Prev color</span>
+                    </li>
+                    <!-- <li class="list__element" id="color-red">
+                        <div class="list__element-color list__element-color--red" ></div>
+                        <span class="list__element-name">red</span>
+                    </li>
+                    <li class="list__element" id="color-blue">
+                        <div class="list__element-color" ></div>
+                        <span class="list__element-name">blue</span>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+        <ul class="frame-container">
+            <li class="frame">
+                <canvas id="current-frame"></canvas>
+            </li>
+        </ul>
+        <div class="place">
+            <canvas class="canvas" id="canvas"></canvas>
+        </div>    
+        <div class="preview-container">
+            <div class="preview-box">
+                <canvas class="preview" id="preview"></canvas>
+            </div>
+        </div>
+    </section>
+</body>
+    
+</html>
