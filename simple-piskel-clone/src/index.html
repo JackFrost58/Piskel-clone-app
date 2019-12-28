@@ -63,9 +63,19 @@
                 <canvas id="current-frame"></canvas>
             </li>
         </ul>
-        <div class="place">
-            <canvas class="canvas" id="canvas"></canvas>
-        </div>    
+        <div class="wrapper">
+            <div class="canvas-size">
+                <p>Size field</p>
+                <select class="select-size" id="size">
+                    <option value="32">32x32</option>
+                    <option value="64">64x64</option>
+                    <option value="128">128x128</option>
+                </select>
+            </div>
+            <div class="place">
+                <canvas class="canvas" id="canvas"></canvas>
+            </div>    
+        </div>
         <div class="preview-container">
             <div class="preview-box">
                 <canvas class="preview" id="preview"></canvas>

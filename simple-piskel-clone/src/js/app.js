@@ -1,6 +1,8 @@
 import '../css/style.css';
 import '../css/style.scss';
 
+import draw from './draw'
+
 const flags = {
     bucket: false,
     pen: true,
@@ -10,83 +12,44 @@ const flags = {
   
   const buttonTools = document.querySelectorAll('.button__element');
   const buttonClear = document.getElementById('clear');
-  const buttonLogin = document.getElementById('login');
-  const buttonGrayscale = document.getElementById('grayscale');
-  const buttonLoad = document.getElementById('buttonLoad');
+  const select = document.getElementById('size');
+  //const buttonLogin = document.getElementById('login');
   const colorList = document.querySelectorAll('.list__element');
   const canvas = document.querySelector('#canvas');
   const prevColor = document.getElementById('change-color');
   const currentColor = document.getElementById('select-color');
   const context = canvas.getContext('2d');
-  let isDrawing = false;
-  const size = 128;
+
+  const currentSize = function setSize() {
+    let size;
+    if(localStorage.getItem('size')) {
+        size = localStorage.getItem('size');
+        select.value = localStorage.getItem('size');
+    } else {
+        localStorage.setItem('size', '32');
+        size = localStorage.getItem('size');
+    }
+    
+    return size;
+  }
+    
+  select.addEventListener('change', () => {
+    if(select.value !== localStorage.getItem('size')) {
+      localStorage.setItem('size', select.value);
+      canvas.width = currentSize();
+      canvas.height = currentSize();
+    }
+  })
+  
+  //const size = 64;
   const keyToRemove = ['canvasImage', 'currentColor', 'activeTool']
   
   prevColor.style.background = '#0000ff';
-  canvas.width = size;
-  canvas.height = size;
+
   
-  async function getLinkToImage(town, key) {
-    const url = `https://api.unsplash.com/photos/random?query=town,${town}&client_id=${key}`;
-    
-    const response = await fetch(url);
-    const data = await response.json();
-   
-    const img = new Image();
-    img.src = data.urls.small;
-    img.crossOrigin = "Anonymous";
+
   
-    const scaledWidth = (canvas.width * data.width) / data.height;
-    const scaledHeight = (canvas.height * data.height) / data.width;
-  
-    const paddingTopBottom = (canvas.height - scaledHeight) / 2;
-    const paddingLeftRight = (canvas.width - scaledWidth) / 2;
-  
-    img.onload = function drawFromLink() {
-      if (data.width > data.height) {
-        context.drawImage(img, 0, paddingTopBottom, canvas.width, scaledHeight);
-      } else {
-        context.drawImage(img, paddingLeftRight, 0, scaledWidth, canvas.height);
-      }
-      
-    }; 
-  }
-  
-  function getCoordinates(e) {
-    const rect = canvas.getBoundingClientRect();
-    const x = Math.floor((e.clientX - rect.left) / (canvas.clientWidth / canvas.width));
-    const y = Math.floor((e.clientY - rect.top) / (canvas.clientHeight / canvas.height));
-  
-    return [x, y];
-  }
-  
-  function draw(e, color) {
-    if (!isDrawing) return;
-    const [x, y] = getCoordinates(e);
-    context.fillStyle = color;
-    context.fillRect(x, y, 1, 1);
-    context.fill();
-    
-  }
-  
-  function RgbToHex(red, green, blue) {
-    let redHex = red.toString(16);
-    let greenHex = green.toString(16);
-    let blueHex = blue.toString(16);
-  
-    if (redHex.length === 1) { redHex = `0${redHex}`; }
-    if (greenHex.length === 1) { greenHex = `0${greenHex}`; }
-    if (blueHex.length === 1) { blueHex = `0${blueHex}`; }
-    return (`#${redHex}${greenHex}${blueHex}`);
-  }
-  
-  function initNetlify() {
-    const script = document.createElement('script');
-    script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
-    script.async = true;
-  
-    document.body.append(script); 
-  }
+  let isDrawing = false;
   
   buttonTools.forEach((item) => {
     item.addEventListener('click', (event) => {
@@ -155,7 +118,7 @@ const flags = {
     if (flags.pen === true) {
       isDrawing = true;
       canvas.addEventListener('mousemove', (e) => {
-        draw(e, currentColor.value);
+        draw(e, currentColor.value, isDrawing);
       });
       canvas.addEventListener('mouseup', () => {
         isDrawing = false;
@@ -235,3 +198,49 @@ const flags = {
   //   .getImageData(0, 0, canvas.width, canvas.height).data
   //   .some(channel => channel !== 0)
   // }
+  
+  // async function getLinkToImage(town, key) {
+  //   const url = `https://api.unsplash.com/photos/random?query=town,${town}&client_id=${key}`;
+    
+  //   const response = await fetch(url);
+  //   const data = await response.json();
+   
+  //   const img = new Image();
+  //   img.src = data.urls.small;
+  //   img.crossOrigin = "Anonymous";
+  
+  //   const scaledWidth = (canvas.width * data.width) / data.height;
+  //   const scaledHeight = (canvas.height * data.height) / data.width;
+  
+  //   const paddingTopBottom = (canvas.height - scaledHeight) / 2;
+  //   const paddingLeftRight = (canvas.width - scaledWidth) / 2;
+  
+  //   img.onload = function drawFromLink() {
+  //     if (data.width > data.height) {
+  //       context.drawImage(img, 0, paddingTopBottom, canvas.width, scaledHeight);
+  //     } else {
+  //       context.drawImage(img, paddingLeftRight, 0, scaledWidth, canvas.height);
+  //     }
+      
+  //   }; 
+  // }
+  
+  // function RgbToHex(red, green, blue) {
+  //   let redHex = red.toString(16);
+  //   let greenHex = green.toString(16);
+  //   let blueHex = blue.toString(16);
+  
+  //   if (redHex.length === 1) { redHex = `0${redHex}`; }
+  //   if (greenHex.length === 1) { greenHex = `0${greenHex}`; }
+  //   if (blueHex.length === 1) { blueHex = `0${blueHex}`; }
+  //   return (`#${redHex}${greenHex}${blueHex}`);
+  // }
+  
+  // function initNetlify() {
+  //   const script = document.createElement('script');
+  //   script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
+  //   script.async = true;
+  
+  //   document.body.append(script); 
+  // }
+  

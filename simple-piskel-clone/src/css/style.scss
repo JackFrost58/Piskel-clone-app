@@ -8,6 +8,12 @@
   height: $height;
 }
 
+* {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: normal;
+}
+
 body{
   margin: 0;
   padding: 0;
@@ -89,9 +95,7 @@ body{
   padding-left: 18px;
   justify-content: start;
   align-items: center;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: normal;
+  
   font-size: 16px;
   line-height: 24px;
   border:  0;
@@ -176,6 +180,7 @@ body{
   border-radius: 10%;
 }
 
+//new code
 
 .icon-stroke {
   @include sizeBox(24px, 24px);
@@ -195,4 +200,30 @@ body{
 
     border: 1px solid black;
   }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.canvas-size{
+  @include sizeBox(400px, 100px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.select-size {
+  @include sizeBox(100px, 44px);
+
+  padding: 9px 2px;
+  background-color: rgba(180,184,187,.4);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  outline: none;
+  box-shadow: 0 4px 4px rgba(0,0,0,.24), 0 0 4px rgba(0,0,0,.12);
 }
