@@ -18,7 +18,7 @@
             <div class="menu__default menu__default--height">
                 <button class="button__element" id="bucket">
                     <img class = "icons" src="./assets/icons/icon-bucket.svg" alt="bucket">
-                    Paint bucket
+                    Paint bucket(All)
                 </button>
                 <button  class="button__element" id ="pen">
                     <img class = "icons" src="./assets/icons/icon-pen.svg" alt="pen">
@@ -37,30 +37,27 @@
                     Clear
                 </button>
             </div>
-            <div class="menu__default">
+            <div class="pen-size-container">
+                <p>Pen size</p>
+                <div class="pen-size active" data-size="1"></div>
+                <div class="pen-size" data-size="2"></div>
+                <div class="pen-size" data-size="3"></div>
+                <div class="pen-size" data-size="4"></div>
+            </div>
+            <div class="wrapper-color">
                 <ul class="list">
                     <li class="list__element" id="current-color">
-                        <input type="color" value="#009900"  id="select-color">
-                        <span class="list__element-name">Current color</span>
+                        <input type="color" value="#009900" class="list__input-color" id="select-color">  
                     </li>
                     <li class="list__element" id="prev-color">
-                        <div class="list__element-color" id="change-color"></div>
-                        <span class="list__element-name">Prev color</span>
+                        <input type="color" value="#000000" class="list__input-color" id="change-color"></input>
                     </li>
-                    <!-- <li class="list__element" id="color-red">
-                        <div class="list__element-color list__element-color--red" ></div>
-                        <span class="list__element-name">red</span>
-                    </li>
-                    <li class="list__element" id="color-blue">
-                        <div class="list__element-color" ></div>
-                        <span class="list__element-name">blue</span>
-                    </li> -->
                 </ul>
             </div>
         </div>
         <ul class="frame-container">
             <li class="frame">
-                <canvas id="current-frame"></canvas>
+                <canvas class="frame__canvas"></canvas>
             </li>
         </ul>
         <div class="wrapper">
