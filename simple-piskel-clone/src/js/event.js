@@ -2,7 +2,6 @@ import { currentSizeCanvas } from "./app";
 
 const select = document.getElementById('size');
 const penSizeFields = document.querySelectorAll('.pen-size');
-
 const previewField = document.getElementById('preview');
 
 

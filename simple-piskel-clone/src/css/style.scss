@@ -1,15 +1,11 @@
-@font-face{
-  font-family: "Roboto";
-  src: url(../assets/font/Roboto.ttf)
-}
+@import './font';
+@import './var';
 
-@mixin sizeBox($width, $height) {
-  width:  $width;
-  height: $height;
-}
+$font: "Roboto";
+
 
 * {
-  font-family: "Roboto";
+  font-family: $font;
   font-style: normal;
   font-weight: normal;
 }
@@ -58,7 +54,6 @@ body{
 
 .menu__default{
   width: 228px;
-  height: 246px;
   margin-bottom: 10px;
   background: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24), 0px 0px 4px rgba(0, 0, 0, 0.12);
@@ -136,10 +131,6 @@ body{
   background: #f00000;
 }
 
-.menu__default--height{
-  height: 276px;
-}
-
 .canvas{
   width: 512px;
   height: 512px;
@@ -180,8 +171,6 @@ body{
   border-radius: 10%;
 }
 
-//new code
-
 .icon-stroke {
   @include sizeBox(24px, 24px);
 }
@@ -191,16 +180,6 @@ body{
 
   border: 1px solid red;
   image-rendering: pixelated;
-}
-
-.frame-container{
-  list-style: none;
-
-  .frame {
-    @include sizeBox(100px, 100px);
-
-    border: 1px solid black;
-  }
 }
 
 .wrapper {
@@ -254,8 +233,6 @@ body{
   border-width: 2px;
   border-color: #444;
   cursor: pointer;
-
-  
 
   &::before {
     content: '';

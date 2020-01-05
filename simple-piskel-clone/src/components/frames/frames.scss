@@ -1,0 +1,68 @@
+@import '../../css/var';
+
+
+.frame-containers{
+  list-style: none;
+
+  .frame-container {
+    @include sizeBox(100px, 100px);
+
+    position: relative;
+    margin-bottom: 20px;
+  }
+}
+
+.frame {
+    @include sizeBox(100px, 100px);
+
+    border: 1px solid black;
+   
+    &:hover *{
+        opacity: 1;
+    }
+}
+
+.frame__button {
+    @include sizeBox(30px, 30px);
+
+    left: 71px;
+    z-index: 2;
+    position: absolute;
+    opacity: 0;
+    border: none;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.frame__delete {
+    top: 2px;
+    background-image: url(./img/delete.svg);
+}
+
+.frame__duplicate {
+    top: 71px;
+    background-image: url(./img/duplicate.svg);
+}
+
+.frame__add {
+    @include sizeBox(100px, 50px);
+
+    border: 0 solid transparent;
+    background-image: url(./img/plus.svg);
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+.frame--select{
+    border: 2px solid yellow !important;
+}
+
+.frame__number {
+    @include sizeBox(30px, 30px);
+
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: yellow;
+}

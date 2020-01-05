@@ -45,7 +45,7 @@ const config = {
       },
       {
         test: /\.js$/,
-        use: ['babel-loader'/* , 'eslint-loader' */],
+        use: ['babel-loader',/* 'eslint-loader'*/],
         exclude: [
           /node_modules/
         ]
@@ -99,27 +99,7 @@ const config = {
           {
             loader: 'image-webpack-loader',
             options: {
-              bypassOnDebug : true,
-              mozjpeg: {
-                progressive: true,
-                quality: 75
-              },
-              // optipng.enabled: false will disable optipng
-              optipng: {
-                enabled: false,
-              },
-              pngquant: {
-                quality: [0.65, 0.90],
-                speed: 4
-              },
-              gifsicle: {
-                interlaced: false,
-                optimizationLevel: 1
-              },
-              // the webp option will enable WEBP
-              webp: {
-                quality: 75
-              }
+              outputPath: 'images',
             }
           }
         ]

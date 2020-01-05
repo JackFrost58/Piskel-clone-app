@@ -1,17 +1,20 @@
 import '../css/style.css';
 import '../css/style.scss';
 
-import { getCoordinates, useTool, useToolStroke } from './draw'
 import { init } from './main';
 import { func } from './event';
+import bar from '../components/frames/frames'
+import convertHexToRgba from '../components/utils/hexToRgba';
+import {bucketPart, bucketAll, clearCanvas, getCoordinates, useTool} from '../components/tools/tools';
+
 
 const flags = {
-  bucket: false,
+  bucketAll: false,
+  bucketPart: false,
   pen: true,
   eraser: false,
   stroke: false,
 };
-
 
 
 const buttonTools = document.querySelectorAll('.button__element');
@@ -21,13 +24,15 @@ const select = document.getElementById('size');
 const colorList = document.querySelectorAll('.list__element');
 const canvas = document.querySelector('#canvas');
 const context = canvas.getContext('2d');
-const prevColor = document.getElementById('change-color');
-const currentColor = document.getElementById('select-color');
+
+const currentColor = document.getElementById('current-color');
+const prevColor = document.getElementById('prev-color');
+
 const frames = document.querySelectorAll('.frame__canvas');
 
 
 localStorage.setItem('sizePen', 1);
-prevColor.style.value = '#0000ff';
+
 
 const previewField = document.getElementById('preview');
 const previewCtx = previewField.getContext('2d');
@@ -55,16 +60,27 @@ buttonTools.forEach((item) => {
       element.classList.remove('active');
     });
     switch (event.currentTarget.id) {
-      case ('bucket'):
-        flags.bucket = true;
+      case ('bucketAll'):
+        flags.bucketAll = true;
+        flags.bucketPart = false;
         flags.pen = false;
         flags.eraser = false;
         flags.stroke = false;
-        document.querySelector('#bucket').classList.add('active');
+        document.querySelector('#bucketAll').classList.add('active');
+        break;
+
+        case ('bucketPart'):
+        flags.bucketAll = false;
+        flags.bucketPart = true;
+        flags.pen = false;
+        flags.eraser = false;
+        flags.stroke = false;
+        document.querySelector('#bucketPart').classList.add('active');
         break;
 
       case ('pen'):
-        flags.bucket = false;
+        flags.bucketAll = false;
+        flags.bucketPart = false;
         flags.pen = true;
         flags.eraser = false;
         flags.stroke = false;
@@ -72,7 +88,8 @@ buttonTools.forEach((item) => {
         break;
 
       case ('eraser'):
-        flags.bucket = false;
+        flags.bucketAll = false;
+        flags.bucketPart = false;
         flags.pen = false;
         flags.eraser = true;
         flags.stroke = false;
@@ -80,7 +97,8 @@ buttonTools.forEach((item) => {
         break;
 
       case ('stroke'):
-        flags.bucket = false;
+        flags.bucketAll = false;
+        flags.bucketPart = false;
         flags.pen = false;
         flags.eraser = false;
         flags.stroke = true;
@@ -94,18 +112,12 @@ buttonTools.forEach((item) => {
 
 colorList.forEach((item) => {
   item.addEventListener('click', (event) => {
-    colorList.forEach((element) => {
-      element.classList.remove('active');
-    });
-    switch (event.currentTarget.id) {
+    switch (event.target.id) {
       case ('current-color'):
-        prevColor.style.value = currentColor.value;
-        currentColor.click();
-        document.querySelector('#current-color').classList.add('active');
+        prevColor.value = currentColor.value;
         break;
       case ('prev-color'):
-        prevColor.style.value = currentColor.value;
-        prevColor.classList.add('active');
+        currentColor.value = prevColor.value;
         break;
       default: console.log('');
     }
@@ -114,17 +126,19 @@ colorList.forEach((item) => {
 
 let startCoordinates = [0, 0];
 
+
 canvas.addEventListener('mousedown', (event) => {
+  let isDrawing = false;
+
   if (flags.pen === true) {
-    let isDrawing = true;
-    startCoordinates = getCoordinates(event);
+    isDrawing = true;
+    startCoordinates = getCoordinates(canvas, event);
 
     canvas.addEventListener('mousemove', (e) => {
       if(!isDrawing) return;
 
       const sizePen = localStorage.getItem('sizePen');
-
-      const currentCoordinates = getCoordinates(e);
+      const currentCoordinates = getCoordinates(canvas, e);
 
       useTool(context, startCoordinates, currentCoordinates, currentColor.value, sizePen);
       useTool(previewCtx, startCoordinates, currentCoordinates, currentColor.value, sizePen)
@@ -134,26 +148,33 @@ canvas.addEventListener('mousedown', (event) => {
 
     canvas.addEventListener('mouseup', () => {
       isDrawing = false;
-    });
+    }); 
   }
 
-  if (flags.bucket === true) {
-    context.fillStyle = currentColor.value;
-    previewCtx.fillStyle = currentColor.value;
-    context.fillRect(0, 0, 512, 512);
-    previewCtx.fillRect(0, 0, 512, 512);
+  if (flags.bucketAll === true) {
+    const size = localStorage.getItem('size');
+    bucketAll(context, previewCtx, currentColor, size);
+  }
+
+  if(flags.bucketPart === true) {
+    const coordinates = getCoordinates(canvas, event);
+    const [x, y] = coordinates;
+    const targetColor = context.getImageData(x,y,1,1).data.toString();
+    const replaceColor = convertHexToRgba(currentColor.value);
+    bucketPart(context, targetColor, replaceColor, coordinates);
+    bucketPart(previewCtx, targetColor, replaceColor, coordinates);
   }
 
   if (flags.eraser === true) {
-    let isDrawing = true;
+    isDrawing = true;
     const colorEraser = '#ffffff';
-    startCoordinates = getCoordinates(event);
+    startCoordinates = getCoordinates(canvas, event);
 
     canvas.addEventListener('mousemove', (e) => {
       if(!isDrawing) return;
 
       const sizePen = localStorage.getItem('sizePen');
-      const currentCoordinates = getCoordinates(e);
+      const currentCoordinates = getCoordinates(canvas, e);
 
       useTool(context, startCoordinates, currentCoordinates, colorEraser, sizePen);
       useTool(previewCtx, startCoordinates, currentCoordinates, colorEraser, sizePen)
@@ -167,21 +188,20 @@ canvas.addEventListener('mousedown', (event) => {
   }
 
   if (flags.stroke === true) {
-    let isDrawing = true;
-    startCoordinates = getCoordinates(event);
+    isDrawing = true;
+    startCoordinates = getCoordinates(canvas, event);
 
     canvas.addEventListener('mousemove', (e) => {
-      if(!isDrawing) return;
-
-      const currentCoordinates = getCoordinates(e);
-      localStorage.setItem('loc', currentCoordinates);      
+      const currentCoordinates = getCoordinates(canvas, e);
+      localStorage.setItem('endCoorLine', currentCoordinates);      
     });
 
     canvas.addEventListener('mouseup', () => {
+      if(!isDrawing) return;
       const sizePen = localStorage.getItem('sizePen');
-      const endCoors = localStorage.getItem('loc').split(',');
-      useToolStroke(context, startCoordinates, endCoors, currentColor.value, sizePen);
-      useToolStroke(previewCtx, startCoordinates, endCoors, currentColor.value, sizePen);
+      const endCoors = localStorage.getItem('endCoorLine').split(',');
+      useTool(context, startCoordinates, endCoors, currentColor.value, sizePen);
+      useTool(previewCtx, startCoordinates, endCoors, currentColor.value, sizePen);
       isDrawing = false;
     });
   }
@@ -191,8 +211,8 @@ buttonClear.addEventListener('mousedown', () => {
   buttonClear.classList.add('active');
   keyToRemove.forEach(element => localStorage.removeItem(element));
   currentColor.value = '#00ff00';
-  context.clearRect(0, 0, 512, 512);
-  previewCtx.clearRect(0, 0, 512, 512);
+  const size = localStorage.getItem('size');
+  clearCanvas(context, previewCtx, size);
 });
 
 buttonClear.addEventListener('mouseup', () => {
@@ -295,7 +315,7 @@ export {currentSizeCanvas}
 //   if (redHex.length === 1) { redHex = `0${redHex}`; }
 //   if (greenHex.length === 1) { greenHex = `0${greenHex}`; }
 //   if (blueHex.length === 1) { blueHex = `0${blueHex}`; }
-//   return (`#${redHex}${greenHex}${blueHex}`);
+//   return (`#${redHex},${greenHex},${blueHex},${255}`);
 // }
 
 // function initNetlify() {

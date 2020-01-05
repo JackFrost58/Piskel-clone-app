@@ -15,10 +15,14 @@
     </header>
     <section class="menu">
         <div class="menu__main">
-            <div class="menu__default menu__default--height">
-                <button class="button__element" id="bucket">
+            <div class="menu__default">
+                <button class="button__element" id="bucketAll">
                     <img class = "icons" src="./assets/icons/icon-bucket.svg" alt="bucket">
                     Paint bucket(All)
+                </button>
+                <button class="button__element" id="bucketPart">
+                    <img class = "icons" src="./assets/icons/icon-bucket.svg" alt="bucket">
+                    Paint bucket
                 </button>
                 <button  class="button__element" id ="pen">
                     <img class = "icons" src="./assets/icons/icon-pen.svg" alt="pen">
@@ -46,20 +50,26 @@
             </div>
             <div class="wrapper-color">
                 <ul class="list">
-                    <li class="list__element" id="current-color">
-                        <input type="color" value="#009900" class="list__input-color" id="select-color">  
+                    <li class="list__element">
+                        <input type="color" value="#009900" class="list__input-color" id="current-color">  
                     </li>
-                    <li class="list__element" id="prev-color">
-                        <input type="color" value="#000000" class="list__input-color" id="change-color"></input>
+                    <li class="list__element">
+                        <input type="color" value="#000000" class="list__input-color" id="prev-color"></input>
                     </li>
                 </ul>
             </div>
         </div>
-        <ul class="frame-container">
-            <li class="frame">
-                <canvas class="frame__canvas"></canvas>
+        <ul class="frame-containers">
+            <li class="frame-container">
+                <div class="frame frame--select">
+                    <div class="frame__number">1</div>
+                    <canvas class="frame__canvas"></canvas>
+                    <button class="frame__button frame__duplicate"></button>
+                    <button class="frame__button frame__delete"></button>
+                </div>
             </li>
         </ul>
+        <button class="frame__add" id="add-frame">Add new frame</button>
         <div class="wrapper">
             <div class="canvas-size">
                 <p>Size field</p>
