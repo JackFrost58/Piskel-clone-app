@@ -1,6 +1,7 @@
 import { updateFramesIndexes, updateFramesState } from "../../utils/frameUpdate";
 
-function changeStyleFrame(frame, position, zIndex, display, top) {
+function changeStyleFrame(currentFrame, position, zIndex, display, top) {
+    const frame = currentFrame;
     frame.style.position = position;
     frame.style.zIndex = zIndex;
     frame.style.display = display;
@@ -20,7 +21,7 @@ function dragAndDrop(event) {
         let currentDroppable = null;
 
         const onMouseMove = (e) => {
-            let frameStyleTop = e.pageY - shiftMouseY;
+            const frameStyleTop = e.pageY - shiftMouseY;
             changeStyleFrame(frame, 'absolute', 6, 'none', frameStyleTop);
 
             const belowEl = document.elementFromPoint(FRAME_CONTAINER_CENTER, e.clientY);

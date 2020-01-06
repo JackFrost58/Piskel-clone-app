@@ -2,7 +2,7 @@ import createFrame from "../createFrame";
 import { updateFramesState } from "../../utils/frameUpdate";
 import { pasteImage } from "../../utils/drawImage";
 
-function dublicateFrame(copiedFrame) {
+function dublicateFrame(copiedFrame, canvas) {
     const frameNum = copiedFrame.children[0].textContent;
     const frameContainer = createFrame(Number(frameNum) + 1);
     const frame = frameContainer.firstElementChild;

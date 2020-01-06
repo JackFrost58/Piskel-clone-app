@@ -1,17 +1,18 @@
 import './tools.scss';
 import convertRgbaToHex from "../utils/rgbaToHex";
   
-function useTool(context, startCoord, currentCoord, color, penSize) {
-let [x0, y0] = startCoord;
-const [x1, y1] = currentCoord;
+function useTool(ctx, startCoord, currentCoord, color, penSize) {
+  const context = ctx;
+  let [x0, y0] = startCoord;
+  const [x1, y1] = currentCoord;
 
-const deltaX = Math.abs(x1 - x0);
-const deltaY = Math.abs(y1 - y0);
-const signX = (x0 < x1) ? 1 : -1;
-const signY = (y0 < y1) ? 1 : -1;
-let err = deltaX - deltaY;
+  const deltaX = Math.abs(x1 - x0);
+  const deltaY = Math.abs(y1 - y0);
+  const signX = (x0 < x1) ? 1 : -1;
+  const signY = (y0 < y1) ? 1 : -1;
+  let err = deltaX - deltaY;
 
-while(true) {
+  while(true) {
     context.fillStyle = color;
     context.fillRect(x0, y0, penSize, penSize) 
 
@@ -19,25 +20,32 @@ while(true) {
     const e2 = 2 * err;
     if (e2 > -deltaY) { err -= deltaY; x0  += signX; }
     if (e2 < deltaX) { err += deltaX; y0  += signY; }
-}
-}
-
-function bucketAll(context, previewCtx, currentColor, sizeCanvas) {
-    context.fillStyle = currentColor.value;
-    previewCtx.fillStyle = currentColor.value;
-    context.fillRect(0, 0, sizeCanvas, sizeCanvas);
-    previewCtx.fillRect(0, 0, sizeCanvas, sizeCanvas);
+  }
 }
 
-function clearCanvas(context, previewCtx, size) {
+function bucketAll(ctx, prevCtx, currentColor, sizeCanvas) {
+  const context = ctx;
+  const previewCtx = prevCtx;
 
-    context.fillStyle = '#fff';
-    previewCtx.fillStyle = '#fff';
-    context.fillRect(0, 0, size, size);
-    previewCtx.fillRect(0, 0, size, size);
+  context.fillStyle = currentColor.value;
+  previewCtx.fillStyle = currentColor.value;
+  context.fillRect(0, 0, sizeCanvas, sizeCanvas);
+  previewCtx.fillRect(0, 0, sizeCanvas, sizeCanvas);
 }
 
-function bucketPart(context, targetColor, replaceColor, coors) {
+function clearCanvas(ctx, prevCtx, size) {
+  const context = ctx;
+  const previewCtx = prevCtx;
+
+  context.fillStyle = '#fff';
+  previewCtx.fillStyle = '#fff';
+  context.fillRect(0, 0, size, size);
+  previewCtx.fillRect(0, 0, size, size);
+}
+
+function bucketPart(ctx, targetColor, replaceColor, coors) {
+  const context = ctx;
+
   if (targetColor === replaceColor) return;
 
   const replaceColorHex = convertRgbaToHex(replaceColor);

@@ -26,7 +26,7 @@ function framesContainerClickHandler(e) {
         addActiveClassToFrame(frame, frames);
         pasteImage(e.target.toDataURL(), canvas);
     } else if (classesEl.contains('frame__duplicate')) {
-        frames = dublicateFrame(frame);
+        frames = dublicateFrame(frame, canvas);
         updateFramesIndexes(frames);
     } else if (classesEl.contains('frame__delete')) {
         frames = deleteFrame(frame, frames);

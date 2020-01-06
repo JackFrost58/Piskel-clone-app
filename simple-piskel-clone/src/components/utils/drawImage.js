@@ -1,10 +1,12 @@
-function pasteImage(url, canvas) {
+function pasteImage(url, canvasEl) {
+    const canvas = canvasEl;
     const size = localStorage.getItem('size');
+    const context = canvas.getContext('2d');
+    const img = new Image();
+    img.src = url;
+
     canvas.width = size;
     canvas.height = size;
-    const context = canvas.getContext('2d');
-    let img = new Image();
-    img.src = url;
 
     img.onload = () => {
         context.fillStyle = '#fff';
@@ -15,7 +17,7 @@ function pasteImage(url, canvas) {
 }
 
 function pasteOnFrame(canvas) {   
-    let currentFrame = document.querySelector('.frame--active');
+    const currentFrame = document.querySelector('.frame--active');
     const currentCanvas = currentFrame.children[1];
 
     pasteImage(canvas.toDataURL(), currentCanvas);
