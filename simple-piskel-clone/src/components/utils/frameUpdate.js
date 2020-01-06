@@ -1,12 +1,12 @@
 function updateFramesIndexes(frames) {
-    frames.forEach((element, index) => {
-        element.children[0].textContent = index + 1;
+    frames.forEach((frame, index) => {
+        frame.children[0].textContent = index + 1;
     })
 }
 
 function addActiveClassToFrame(frame, frames) {
-    frames.forEach(element => element.classList.remove('frame--select'));
-    frame.classList.add('frame--select');
+    frames.forEach(elem => elem.classList.remove('frame--active'));
+    frame.classList.add('frame--active');
 }
 
 function updateFramesState() {

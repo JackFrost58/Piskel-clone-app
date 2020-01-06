@@ -8,6 +8,7 @@ function createFrame(frameNumber) {
         <canvas class="frame__canvas"></canvas>
         <button class="frame__button frame__duplicate"></button>
         <button class="frame__button frame__delete"></button>
+        <button class="frame__button frame__dragDrop"></button>
     </div>`
     
     return frameContainer;

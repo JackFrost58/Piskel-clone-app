@@ -1,8 +1,8 @@
 @import './font';
 @import './var';
+@import './header';
 
 $font: "Roboto";
-
 
 * {
   font-family: $font;
@@ -15,131 +15,15 @@ body{
   padding: 0;
 }
 
-.header{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 70px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24), 0px 0px 4px rgba(0, 0, 0, 0.12);
-}
-
-.header__nav{
-  display: flex;
-  margin-left: 10px;
-}
-
-.header__head{
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 23px;
-}
-
-.header__menu{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: auto 16px;
-}
-
-.menu{
-  display: flex;
-  justify-content: space-around;
-}
-
-.menu__main{
-  width: 228px;
-  margin: 0 5px;
-}
-
-.menu__default{
-  width: 228px;
-  margin-bottom: 10px;
-  background: #FFFFFF;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24), 0px 0px 4px rgba(0, 0, 0, 0.12);
-}
-
-.list{
-  display: inline-block;
-  width: 100%;
-  padding: 0;
-  margin-bottom: 30px;
-  list-style: none;
-}
-
-.list__element{
-  display: flex;
-  height: 48px;
-  padding-left: 18px;
-  justify-content: start;
-  align-items: center;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(0, 0, 0, 0.541327);
-  cursor: pointer;
-}
-
-.button__element{
-  @include sizeBox(100%, 48px);
-
-  display: flex;
-  margin-bottom: 5px;
-  padding-left: 18px;
-  justify-content: start;
-  align-items: center;
-  
-  font-size: 16px;
-  line-height: 24px;
-  border:  0;
-  background: transparent;
-  color: rgba(0, 0, 0, 0.541327);
-  cursor: pointer;
-
-  &:hover {
-    background-color: rgba(35, 245, 28, 0.548);
-  }
+main{
+  display: grid;
+  grid-template-columns: 205px 130px auto 190px 20px;
+  grid-column-gap: 10px;
+  padding: 5px 0 10px;
 }
 
 .icons{
   margin-right: 10px;
-}
-
-.list__element-name{
-  margin-left: 33px;
-}
-
-.list__element-color{
-  width: 22px;
-  height: 22px;
-  border: 1px solid #000000;
-  background: #0000ff;
-  border-radius: 50%;
-}
-
-.list__element-color--current{
-  background: #C4C4C4;
-}
-
-.list__element-color--prev{
-  background: #41F795;
-}
-
-.list__element-color--red{
-  background: #f00000;
-}
-
-.canvas{
-  width: 512px;
-  height: 512px;
-  border: 1px solid gray;
-  image-rendering: pixelated;
-}
-
-.active{
-  background: red;
 }
 
 .image-menu{
@@ -176,7 +60,7 @@ body{
 }
 
 .preview{
-  @include sizeBox(200px, 200px);
+  @include sizeBox(100%, 200px);
 
   border: 1px solid red;
   image-rendering: pixelated;
@@ -206,58 +90,4 @@ body{
   border-radius: 5px;
   outline: none;
   box-shadow: 0 4px 4px rgba(0,0,0,.24), 0 0 4px rgba(0,0,0,.12);
-}
-
-.frame__canvas {
-  @include sizeBox(100px, 100px);
-}
-
-.list__input-color {
-  display: block;
-  width: 32px;
-  height: 32px;
-  border: none;
-}
-
-.pen-size-container {
-
-}
-
-.pen-size {
-  float: left;
-  box-sizing: border-box;
-  width: 20px;
-  height: 20px;
-  margin-right: 2px;
-  border-style: solid;
-  border-width: 2px;
-  border-color: #444;
-  cursor: pointer;
-
-  &::before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    display: block;
-    text-align: center;
-    line-height: 12px;
-    font-size: 90%;
-  }
-}
-
-.pen-size[data-size='1'] {
-  padding: 5px;
-}
-
-.pen-size[data-size='2'] {
-  padding: 4px;
-}
-
-.pen-size[data-size='3'] {
-  padding: 3px;
-}
-
-.pen-size[data-size='4'] {
-  padding: 2px;
 }

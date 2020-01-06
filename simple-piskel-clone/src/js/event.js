@@ -1,4 +1,4 @@
-import { currentSizeCanvas } from "./app";
+import currentSizeCanvas from "../components/canvas/currentSizeCanvas";
 
 const select = document.getElementById('size');
 const penSizeFields = document.querySelectorAll('.pen-size');
@@ -26,7 +26,5 @@ penSizeFields.forEach( (element) => {
         localStorage.setItem('sizePen', element.dataset.size);
     });
 });
-
-
 
 export {func};

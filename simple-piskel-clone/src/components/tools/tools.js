@@ -1,12 +1,5 @@
+import './tools.scss';
 import convertRgbaToHex from "../utils/rgbaToHex";
-
-function getCoordinates(canvas, e) {
-    const rect = canvas.getBoundingClientRect();
-    const x = Math.floor((e.clientX - rect.left) / (canvas.clientWidth / canvas.width));
-    const y = Math.floor((e.clientY - rect.top) / (canvas.clientHeight / canvas.height));
-  
-    return [x, y];
-  }
   
 function useTool(context, startCoord, currentCoord, color, penSize) {
 let [x0, y0] = startCoord;
@@ -37,6 +30,7 @@ function bucketAll(context, previewCtx, currentColor, sizeCanvas) {
 }
 
 function clearCanvas(context, previewCtx, size) {
+
     context.fillStyle = '#fff';
     previewCtx.fillStyle = '#fff';
     context.fillRect(0, 0, size, size);
@@ -88,5 +82,4 @@ function bucketPart(context, targetColor, replaceColor, coors) {
   }
 }
 
-
-export {bucketAll, clearCanvas, bucketPart, useTool, getCoordinates}
+export {bucketAll, clearCanvas, bucketPart, useTool}

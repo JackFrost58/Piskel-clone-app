@@ -1,18 +1,18 @@
 import createFrame from "../createFrame";
 import { updateFramesState } from "../../utils/frameUpdate";
+import { pasteImage } from "../../utils/drawImage";
 
 function dublicateFrame(copiedFrame) {
     const frameNum = copiedFrame.children[0].textContent;
     const frameContainer = createFrame(Number(frameNum) + 1);
-    //const frame = frameContainer.firstElementChild;
+    const frame = frameContainer.firstElementChild;
     const copiedFrameContainer = copiedFrame.parentElement;
-    //console.log(frame);
     copiedFrameContainer.after(frameContainer);
 
-   // const url = copiedFrame.firstElementChild.toDataURL();
+    const url = copiedFrame.children[1].toDataURL();
 
-    //printImage(url, frame.firstElementChild);
-    //printImage(url, canvas);
+    pasteImage(url, frame.children[1]);
+    pasteImage(url, canvas);
 
     return updateFramesState();
 }

@@ -1,0 +1,8 @@
+@import '../../css/var';
+
+.canvas{
+    @include sizeBox(512px, 512px);
+    
+    border: 1px solid gray;
+    image-rendering: pixelated;
+}
