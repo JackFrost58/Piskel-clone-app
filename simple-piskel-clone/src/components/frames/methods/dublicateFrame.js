@@ -1,4 +1,4 @@
-import createFrame from "../createFrame";
+const { createFrame } = require('../createFrame');
 import { updateFramesState } from "../../utils/frameUpdate";
 import { pasteImage } from "../../utils/drawImage";
 

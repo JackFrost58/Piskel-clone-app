@@ -6,6 +6,7 @@ import deleteFrame from './methods/deleteFrame';
 import addFrame from './methods/addFrame';
 import { pasteImage } from '../utils/drawImage';
 import dragAndDrop from './methods/dragAndDrop';
+import { drawFramesUrl, saveFrames } from '../utils/saveLocalStorage';
 
 const frameContainers = document.querySelector('.frame-containers');
 const btnAddFrame = document.getElementById('add-frame');
@@ -13,9 +14,17 @@ const startFrame = document.querySelector('.frame');
 let frames = [startFrame];
 let canvas;
 
-btnAddFrame.addEventListener('click', () => {
+function addFrameClickHandler() {
     addFrame(frames);
-})
+}
+
+function windowOnloadHandler() {
+    saveFrames(frames);
+}
+
+function windowLoadHandler() {
+    drawFramesUrl(frames);
+}
 
 function framesContainerClickHandler(e) {
     const frame = e.target.parentElement;
@@ -37,6 +46,9 @@ function framesContainerClickHandler(e) {
 function initFrames() {
     frameContainers.addEventListener('click', framesContainerClickHandler);
     frameContainers.addEventListener('mousedown', dragAndDrop);
+    btnAddFrame.addEventListener('click', addFrameClickHandler);
+    window.addEventListener('load', windowLoadHandler);
+    window.addEventListener('unload', windowOnloadHandler);
 }
 
 export default initFrames;

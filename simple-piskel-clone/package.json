@@ -1,7 +1,7 @@
 {
-  "name": "webpack-boilerplate",
+  "name": "SimplePiskelClone",
   "version": "1.0.1",
-  "description": "WebPack: HTML, CSS, SCSS, JS, Img, Fonts",
+  "description": "",
   "main": "",
   "browserslist": [
     "> 0.25%, not dead"
@@ -10,9 +10,11 @@
     "dev": "webpack-dev-server --history-api-fallback --inline --open",
     "build": "npm run clear -s && webpack --progress",
     "lint": "eslint ./**/*.js",
-    "clear": "del-cli dist"
+    "clear": "del-cli dist",
+    "test": "jest",
+    "coverage": "jest --coverage --coverage-reporters=lcov"
   },
-  "author": "Netizen",
+  "author": "JackFrost",
   "license": "ISC",
   "repository": {
     "type": "git",
@@ -37,6 +39,7 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "image-webpack-loader": "^6.0.0",
+    "jest": "^24.9.0",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.13.0",
     "postcss-loader": "^3.0.0",
@@ -50,5 +53,8 @@
   "dependencies": {
     "core-js": "^3.4.7",
     "regenerator-runtime": "^0.13.3"
+  },
+  "jest": { 
+    "collectCoverageFrom" : ["src/**/*.js"]
   }
 }

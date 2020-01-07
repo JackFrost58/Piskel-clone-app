@@ -1,5 +1,5 @@
 import { addActiveClassToFrame } from "../../utils/frameUpdate";
-import createFrame from "../createFrame";
+const { createFrame } = require('../createFrame');
 import { pasteImage } from "../../utils/drawImage";
 
 let frameContainers; 

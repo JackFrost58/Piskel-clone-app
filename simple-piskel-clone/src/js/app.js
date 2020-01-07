@@ -8,7 +8,8 @@ import { pasteOnFrame } from '../components/utils/drawImage';
 import initFrames from '../components/frames/frames';
 import initCanvas from '../components/canvas/canvas';
 import getCoordinates from '../components/utils/getCoordinate';
-
+import initAnimation from '../components/animation/animation';
+import initNetlify from '../components/login/login';
 
 const flags = {
   bucketAll: false,
@@ -20,7 +21,7 @@ const flags = {
 
 const buttonTools = document.querySelectorAll('.button__element');
 const buttonClear = document.getElementById('clear');
-//const buttonLogin = document.getElementById('login');
+
 const colorList = document.querySelectorAll('.list__element');
 const canvas = document.querySelector('#canvas');
 const context = canvas.getContext('2d');
@@ -210,21 +211,12 @@ buttonClear.addEventListener('mouseup', () => {
 })
 
 window.onbeforeunload = function saveData() {
-  localStorage.setItem('canvasImage', this.canvas.toDataURL());
   localStorage.setItem('currentColor', currentColor.value);
   for (const prop in flags) {
     if (flags[prop] === true) {
       localStorage.setItem('activeTool', prop);
     }
   }
-};
-
-const dataURL = localStorage.getItem('canvasImage');
-const img = new Image();
-img.src = dataURL;
-img.onload = function drawFromStorage() {
-  context.drawImage(img, 0, 0);
-  previewCtx.drawImage(img, 0, 0);
 };
 
 window.onload = function setTool() {
@@ -244,35 +236,5 @@ window.onload = function setTool() {
 func;
 initFrames();
 initCanvas();
-
-
-// buttonLogin.addEventListener('click', () => {
-//   window.netlifyIdentity.open();
-  
-//   window.netlifyIdentity.on('logout', () => {
-//     buttonLogin.textContent = 'Login';
-//   });
-
-//   window.netlifyIdentity.on('login', () => {
-//     buttonLogin.textContent = 'Logout';
-//   });
-// });
-
-// function RgbToHex(red, green, blue) {
-//   let redHex = red.toString(16);
-//   let greenHex = green.toString(16);
-//   let blueHex = blue.toString(16);
-
-//   if (redHex.length === 1) { redHex = `0${redHex}`; }
-//   if (greenHex.length === 1) { greenHex = `0${greenHex}`; }
-//   if (blueHex.length === 1) { blueHex = `0${blueHex}`; }
-//   return (`#${redHex},${greenHex},${blueHex},${255}`);
-// }
-
-// function initNetlify() {
-//   const script = document.createElement('script');
-//   script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
-//   script.async = true;
-
-//   document.body.append(script); 
-// }
+initAnimation();
+initNetlify();

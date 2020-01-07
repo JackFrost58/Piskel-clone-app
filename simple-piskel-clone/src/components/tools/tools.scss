@@ -6,10 +6,10 @@
 }
 
 .menu__default {
-    width: 100%;
-    margin-bottom: 10px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24), 0px 0px 4px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  margin-bottom: 10px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24), 0px 0px 4px rgba(0, 0, 0, 0.12);
 }
 
 .button__element {
@@ -38,10 +38,14 @@
   background-color: rgba(35, 245, 28, 0.548);
 }
 
-.pen-size-container {
-    @include sizeBox(100%, 40px);
+.icons{
+  margin-right: 10px;
+}
 
-    display: flex;
+.pen-size-container {
+  @include sizeBox(100%, 40px);
+
+  display: flex;
 }
 
 .pen-size {
@@ -81,19 +85,19 @@
 }
 
 .wrapper-color {
-    @include sizeBox(100px, 100px);
+  @include sizeBox(100px, 100px);
 
-    position: relative;
-    margin-top: 20px;
-    margin-left: 10px;
+  position: relative;
+  margin-top: 20px;
+  margin-left: 10px;
 }
 
 .color-box {
-    @include sizeBox(46px, 46px);
-    padding: 0;
-    border: none;
-    outline: none;
-    cursor: pointer;
+  @include sizeBox(46px, 46px);
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .primary-color {
