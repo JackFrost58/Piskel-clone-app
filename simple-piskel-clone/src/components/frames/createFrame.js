@@ -14,4 +14,4 @@ function createFrame(frameNumber) {
     return frameContainer;
 }
 
-module.exports = {createFrame};
+export default createFrame;

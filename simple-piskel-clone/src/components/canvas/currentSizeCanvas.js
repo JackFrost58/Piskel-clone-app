@@ -1,3 +1,5 @@
+const select = document.getElementById('size');
+
 const currentSizeCanvas = function setSize() {
     const select = document.getElementById('size');
     let size;
@@ -11,5 +13,21 @@ const currentSizeCanvas = function setSize() {
     
     return size;
 }
-    
-export default currentSizeCanvas;
+  
+function selectSizeCanvasHandler() {
+    const previewField = document.getElementById('preview');
+
+    if(select.value !== localStorage.getItem('size')) {
+        localStorage.setItem('size', select.value);
+        canvas.width = currentSizeCanvas();
+        canvas.height = currentSizeCanvas(); 
+        previewField.width = currentSizeCanvas();
+        previewField.height = currentSizeCanvas(); 
+    }
+}
+
+function initCanvasSize() {
+    select.addEventListener('change', selectSizeCanvasHandler)
+}
+
+export {currentSizeCanvas, initCanvasSize};

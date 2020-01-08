@@ -18,7 +18,7 @@ function addFrameClickHandler() {
     addFrame(frames);
 }
 
-function windowOnloadHandler() {
+function windowUnloadHandler() {
     saveFrames(frames);
 }
 
@@ -37,7 +37,7 @@ function framesContainerClickHandler(e) {
     } else if (classesEl.contains('frame__duplicate')) {
         frames = dublicateFrame(frame, canvas);
         updateFramesIndexes(frames);
-    } else if (classesEl.contains('frame__delete')) {
+    } else if (classesEl.contains('frame__delete') && frames.length > 1) {
         frames = deleteFrame(frame, frames);
         updateFramesIndexes(frames);
     }
@@ -48,7 +48,7 @@ function initFrames() {
     frameContainers.addEventListener('mousedown', dragAndDrop);
     btnAddFrame.addEventListener('click', addFrameClickHandler);
     window.addEventListener('load', windowLoadHandler);
-    window.addEventListener('unload', windowOnloadHandler);
+    window.addEventListener('unload', windowUnloadHandler);
 }
 
 export default initFrames;

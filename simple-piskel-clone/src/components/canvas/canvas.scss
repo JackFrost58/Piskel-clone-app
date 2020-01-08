@@ -6,3 +6,19 @@
     border: 1px solid gray;
     image-rendering: pixelated;
 }
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 4px rgba(0,0,0,.24), 0 0 4px rgba(0,0,0,.12);
+}
+  
+.canvas-size{
+    @include sizeBox(400px, 100px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}

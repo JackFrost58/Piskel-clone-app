@@ -1,12 +1,13 @@
 import { updateFramesState } from "../../utils/frameUpdate";
 
-const frameContainers = document.querySelector('.frame-containers');
+let frameContainers;
 
 function deleteFrame(frame, frames) {
+    frameContainers = document.querySelector('.frame-containers');
     const frameIndex = frame.children[0].textContent - 1;
     const removeEl = frame.parentElement;
     if (frame.classList.contains("frame--active")) {
-        const previewFrame = frames[frameIndex - 1];
+        const previewFrame = frames[frameIndex - 1] || frames[1];
         previewFrame.classList.add('frame--active');
         frameContainers.removeChild(removeEl);
     } else {

@@ -18,27 +18,9 @@ body{
 main{
   display: grid;
   grid-template-columns: 205px 130px auto 205px 20px;
+  height: calc(100vh - 100px);
   grid-column-gap: 10px;
   padding: 5px 0 10px;
-}
-
-.icon-stroke {
-  @include sizeBox(24px, 24px);
-}
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.canvas-size{
-  @include sizeBox(400px, 100px);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
 }
 
 .select-size {

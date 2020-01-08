@@ -1,5 +1,10 @@
 import './tools.scss';
 import convertRgbaToHex from "../utils/rgbaToHex";
+import { pasteOnFrame } from '../utils/drawImage';
+import { setDefaultTool } from '../utils/saveLocalStorage';
+
+const toolsMenu = document.querySelector('.menu__default');
+const buttonClear = document.getElementById('clear');
   
 function useTool(ctx, startCoord, currentCoord, color, penSize) {
   const context = ctx;
@@ -23,24 +28,19 @@ function useTool(ctx, startCoord, currentCoord, color, penSize) {
   }
 }
 
-function bucketAll(ctx, prevCtx, currentColor, sizeCanvas) {
+function bucketAll(ctx, currentColor, sizeCanvas) {
   const context = ctx;
-  const previewCtx = prevCtx;
 
-  context.fillStyle = currentColor.value;
-  previewCtx.fillStyle = currentColor.value;
+  context.fillStyle = currentColor;
   context.fillRect(0, 0, sizeCanvas, sizeCanvas);
-  previewCtx.fillRect(0, 0, sizeCanvas, sizeCanvas);
 }
 
-function clearCanvas(ctx, prevCtx, size) {
-  const context = ctx;
-  const previewCtx = prevCtx;
+function clearCanvas(size) {
+  const canvas = document.querySelector('#canvas');
+  const context = canvas.getContext('2d');
 
   context.fillStyle = '#fff';
-  previewCtx.fillStyle = '#fff';
   context.fillRect(0, 0, size, size);
-  previewCtx.fillRect(0, 0, size, size);
 }
 
 function bucketPart(ctx, targetColor, replaceColor, coors) {
@@ -90,4 +90,36 @@ function bucketPart(ctx, targetColor, replaceColor, coors) {
   }
 }
 
-export {bucketAll, clearCanvas, bucketPart, useTool}
+function btnClearMouseDownHandler() {
+  const size = localStorage.getItem('size');
+  const canvas = document.querySelector('#canvas');
+  
+  clearCanvas(size);
+  pasteOnFrame(canvas)
+}
+
+function toolClickHandler(e) {
+  const buttonTools = document.querySelectorAll('.button__element');
+  buttonTools.forEach((element) => {
+    element.classList.remove('active');
+  });
+
+  const currentTool = e.target;
+
+  if (currentTool) {
+    localStorage.setItem('activeTool', currentTool.id);
+    currentTool.classList.add('active');
+  }  
+}
+
+function windowLoadHandler() {
+  setDefaultTool();
+}
+
+function initTool() {
+  toolsMenu.addEventListener('click', toolClickHandler);
+  buttonClear.addEventListener('click', btnClearMouseDownHandler);
+  window.addEventListener('load', windowLoadHandler);
+}
+
+export {bucketAll, clearCanvas, bucketPart, useTool, initTool}
