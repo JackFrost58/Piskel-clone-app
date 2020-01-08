@@ -1,8 +1,8 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const ENV = process.env.npm_lifecycle_event;
 const isDev = ENV === 'dev';
@@ -26,7 +26,10 @@ function setDMode() {
 
 const config = {
   target: "web",
-  entry: {index: './src/js/app.js'},
+  entry: {
+    index: './src/app/app.js',
+    //landing: './src/landing/landing.js'
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js'
@@ -121,9 +124,16 @@ const config = {
       filename: 'style.css',
     }),
     new HtmlWebPackPlugin({
-      template: './src/index.html',
+      template: './src/app/index.html',
       filename: './index.html'
     }),
+  //   new MiniCssExtractPlugin({
+  //     filename: 'landing.css',
+  //   }),
+  //   new HtmlWebPackPlugin({
+  //     filename: './src/landing/landing.html',
+  //     template: './src/landing/landing.html'
+  // }),
     new CopyWebpackPlugin([
       // {from: './src/static', to: './'},
       // {from: './src/img', to: './img/'},
@@ -142,7 +152,7 @@ const config = {
 
 if (isProd) {
   config.plugins.push(
-    new UglifyJSPlugin(),
+    new TerserPlugin(),
   );
 };
 
