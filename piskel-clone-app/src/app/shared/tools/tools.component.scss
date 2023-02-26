@@ -1,102 +1,106 @@
-@import '../../components/css/var';
+@import 'mixins';
+@import 'vars';
 
-.tools-container {
-  width: 190px;
-  margin: 0 5px;
-}
-
-.menu__default {
-  width: 100%;
-  margin-bottom: 10px;
-  background: #FFFFFF;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24), 0px 0px 4px rgba(0, 0, 0, 0.12);
-}
-
-.icons{
-  margin: 1rem;
-  transform: scale(2)
-}
-
-.pen-size-container {
-  @include sizeBox(100%, 40px);
-
-  display: flex;
-}
-
-.pen-size {
-  @include sizeBox(20px, 20px);
-
-  box-sizing: border-box;
-  margin-right: 2px;
-  border: 2px solid #444;
-  cursor: pointer;
-
-  &::before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    display: block;
-    text-align: center;
-    line-height: 12px;
-    font-size: 90%;
+:host {
+  height: 100%;
+  .tools-container {
+    @include flex(column);
+    @include block-size(18rem, 100%);
+    justify-content: space-between;
+    margin: 0 $default-offset-small;
+  
+    .tools-setting {
+      .tools {
+        width: 100%;
+        margin-bottom: $default-offset-small;
+    
+        .icons{
+          margin: $default-offset;
+          transform: scale(2);
+        }
+      }
+    }
   }
-}
-
-.pen-size[data-size='1'] {
-  padding: 5px;
-}
-
-.pen-size[data-size='2'] {
-  padding: 4px;
-}
-
-.pen-size[data-size='3'] {
-  padding: 3px;
-}
-
-.pen-size[data-size='4'] {
-  padding: 2px;
-}
-
-.wrapper-color {
-  @include sizeBox(100px, 100px);
-
-  position: relative;
-  margin-top: 20px;
-  margin-left: 10px;
-}
-
-.color-box {
-  @include sizeBox(46px, 46px);
-  padding: 0;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-
-.primary-color {
-  position: relative;
-  z-index: 2;
-}
-
-.preview-color {
-  position: relative;
-  top: 34px;
-  left: -16px;
-}
-
-.color-change {
-  @include sizeBox(30px, 30px);
-
-  border: 1px solid transparent;
-  background-color: transparent;
-  // background-image: url(./assets/icon-change.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  outline: transparent;
-
-  &:hover {
-    border: 2px solid rgba(35, 245, 28, 0.548);
+  
+  mat-slider {
+    width: 96%
+  }
+  
+  mat-form-field {
+    @include block-size(5rem, 2.5rem);
+  
+    ::ng-deep .mat-mdc-text-field-wrapper {
+      @include flex;
+      @include flex-center;
+      border: 1px solid purple;
+      border-radius: 0;
+      padding: 0 $default-offset-small;
+  
+      .mat-mdc-form-field-focus-overlay {
+        background-color: transparent;
+      }
+  
+      .mdc-line-ripple {
+        display: none;
+      }
+    }
+  
+    ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+  
+  ::ng-deep .mdc-text-field{
+    background-color: transparent !important;
+  }
+  
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    min-height: auto;
+    padding: 0 0.4rem !important;
+  }
+  
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  
+  .draw-size {
+    @include flex(column);
+    align-items: center;
+  
+    &-title {
+      @include flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.5rem;
+    }
+  
+    &-number {
+      text-align: right;
+    }
+  }
+  
+  .color-box {
+    @include block-size(46px, 46px);
+    padding: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .color-change {
+    @include block-size(30px, 30px);
+  
+    border: 1px solid transparent;
+    background-color: transparent;
+    // background-image: url(./assets/icon-change.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    outline: transparent;
+  
+    &:hover {
+      border: 2px solid rgba(35, 245, 28, 0.548);
+    }
   }
 }

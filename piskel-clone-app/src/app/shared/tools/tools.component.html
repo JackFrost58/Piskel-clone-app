@@ -1,31 +1,35 @@
-<!-- <div class="tools-container"> -->
-  <div class="menu__default">
-    <ng-container *ngFor="let button of BUTTON_NAMES">
-      <!-- <button mat-icon-button  color="primary"> -->
-        <mat-icon 
-          class="icons"
-          [matTooltip]="button.name" 
-          color="primary">{{button.icon}}
+<div class="tools-container">
+  <section class="tools-setting">
+    <div class="tools">
+      <ng-container *ngFor="let tool of tools">
+        <mat-icon class="icons" [matTooltip]="tool.name" (click)="setTool(tool)">{{tool.icon}}
         </mat-icon>
-      <!-- </button> -->
+      </ng-container>
+      <mat-icon class="icons" [matTooltip]="'Eraser'" svgIcon="icon_eraser">eraser</mat-icon>
+    </div>
+    <ng-container *ngIf="isDrawTools(tools[0])">
+      <div class="draw-size">
+        <div class="draw-size-title">
+          <label>Thickness</label>
+          <mat-form-field>
+            <input matInput type="number" class="draw-size-number" max="100" [(ngModel)]="value">
+            <label matSuffix>px</label>
+          </mat-form-field>
+        </div>
+        <mat-slider min="1" max="100" step="1" [discrete]="false" [showTickMarks]="false">
+          <input matSliderThumb [(ngModel)]="value">
+        </mat-slider>
+      </div>
     </ng-container>
-    <!-- <button mat-icon-button matTooltip="dasdwa" color="primary"> -->
-      <!-- <mat-icon class="icons">delete</mat-icon> -->
-    <!-- </button> -->
-    <!-- <button class="button__element"> 
-      <mat-icon class="icons" svgIcon="icon_eraser">eraser</mat-icon>
-      Eraserw
-    </button> -->
-  </div>
-  <!-- <div class="pen-size-container">
-    <div class="pen-size" data-size="1"></div>
-    <div class="pen-size" data-size="2"></div>
-    <div class="pen-size" data-size="3"></div>
-    <div class="pen-size" data-size="4"></div>
-  </div>
-  <div class="wrapper-color">
-    <input type="color" value="#009900" class="color-box primary-color" id="current-color">  
+  </section>
+  <section class="colors-container">
+    <div class="color-palette">
+      <ng-container *ngFor="let color of colors">
+        <input type="color" class="color-box" [value]="setColor(color.colorValue)">
+      </ng-container>
+    </div>
+    <!-- <input type="color" value="#009900" class="color-box primary-color" id="current-color">  
     <input type="color" value="#000000" class="color-box preview-color" id="prev-color">
-    <button class="color-change" id="colorChange"></button>
-  </div> -->
-<!-- </div> -->
+    <button class="color-change" id="colorChange"></button> -->
+  </section> 
+</div>

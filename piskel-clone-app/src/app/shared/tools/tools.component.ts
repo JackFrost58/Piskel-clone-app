@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
-import {BUTTON_NAMES} from './entities/constants';
+import {COLORS, TOOLS} from './entities/constants';
+import {Tool} from './entities/interfaces';
 // import {setColorPen, setDefaultPenSize} from "@helpers/saveLocalStorage";
 
 @Component({
@@ -11,7 +12,9 @@ import {BUTTON_NAMES} from './entities/constants';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolsComponent implements OnInit {
-  public readonly BUTTON_NAMES = BUTTON_NAMES
+  public readonly tools = TOOLS;
+  public readonly colors = COLORS;
+  public value = 1;
 
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
     this.matIconRegistry.addSvgIcon(
@@ -23,7 +26,17 @@ export class ToolsComponent implements OnInit {
   ngOnInit() {
   }
 
+  public isDrawTools(tool: Tool): boolean {
+    return true
+  }
 
+  public setTool(tool: Tool) {
+
+  }
+
+  public setColor(colorValue: string): string {
+    return `#${colorValue}`;
+  }
 // const colorField = document.querySelector('.wrapper-color');
 // const currentColor = document.getElementById('current-color');
 // const prevColor = document.getElementById('prev-color');
