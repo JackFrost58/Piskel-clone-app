@@ -1,6 +1,6 @@
-@import './components/css/font';
-@import './components/css/var';
-@import './components/css/header';
+@import 'font';
+@import 'vars';
+@import 'header';
 
 $font: "Roboto";
 
@@ -13,12 +13,4 @@ $font: "Roboto";
 body{
   margin: 0;
   padding: 0;
-}
-
-main{
-  display: grid;
-  grid-template-columns: 205px 130px auto 205px 20px;
-  height: calc(100vh - 100px);
-  grid-column-gap: 10px;
-  padding: 5px 0 10px;
 }
