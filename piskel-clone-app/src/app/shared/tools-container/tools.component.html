@@ -2,10 +2,9 @@
   <section class="tools-setting">
     <div class="tools">
       <ng-container *ngFor="let tool of tools">
-        <mat-icon class="icons" [matTooltip]="tool.name" (click)="setTool(tool)">{{tool.icon}}
+        <mat-icon class="icons" color="primary" [matTooltip]="tool.name" (click)="setTool(tool)">{{tool.icon}}
         </mat-icon>
       </ng-container>
-      <mat-icon class="icons" [matTooltip]="'Eraser'" svgIcon="icon_eraser">eraser</mat-icon>
     </div>
     <ng-container *ngIf="isDrawTools(tools[0])">
       <div class="draw-size">
@@ -24,12 +23,22 @@
   </section>
   <section class="colors-container">
     <div class="color-palette">
-      <ng-container *ngFor="let color of colors">
-        <input type="color" class="color-box" [value]="setColor(color.colorValue)">
-      </ng-container>
+      <div class="current-color">
+        <input type="color" class="current-color-box" (click)="changeActiveColor($event)">
+      </div> 
+      <div class="default-colors">
+        <ng-container *ngFor="let color of colors">
+          <div class="color-box" [ngStyle]="{'background-color': addColorElement(color.colorValue)}" (click)="setColor(color.colorValue)"></div>
+        </ng-container>
+      </div>
+      <div class="custom-colors">
+        <ng-container *ngFor="let color of customColors">
+          <input type="color" class="color-box" [value]="addColorElement(color.colorValue)">
+        </ng-container>
+        <button mat-icon-button color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
     </div>
-    <!-- <input type="color" value="#009900" class="color-box primary-color" id="current-color">  
-    <input type="color" value="#000000" class="color-box preview-color" id="prev-color">
-    <button class="color-change" id="colorChange"></button> -->
   </section> 
 </div>

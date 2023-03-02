@@ -2,14 +2,17 @@
 @import 'vars';
 
 :host {
+  display: flex;
   height: 100%;
+
   .tools-container {
     @include flex(column);
     @include block-size(18rem, 100%);
     justify-content: space-between;
     margin: 0 $default-offset-small;
-  
+
     .tools-setting {
+      flex: 1 0 auto;
       .tools {
         width: 100%;
         margin-bottom: $default-offset-small;
@@ -17,7 +20,18 @@
         .icons{
           margin: $default-offset;
           transform: scale(2);
+          cursor: pointer;
         }
+      }
+    }
+
+    .colors-container {
+      flex: 0 0 auto;
+    }
+
+    .current-color {
+      &-box {
+        @include color-box(12rem, 3rem, $default-radius);
       }
     }
   }
@@ -73,7 +87,7 @@
       width: 100%;
       justify-content: space-between;
       align-items: center;
-      font-size: 1.5rem;
+      font-size: 1rem;
     }
   
     &-number {
@@ -81,26 +95,24 @@
     }
   }
   
-  .color-box {
-    @include block-size(46px, 46px);
-    padding: 0;
-    border: none;
-    outline: none;
-    cursor: pointer;
+  .default-colors {
+    @include flex;
+    flex-wrap: wrap;
+    margin-bottom: $default-offset-small;
+
+    .color-box {
+      @include block-size(3rem, 3rem);
+      cursor: pointer;
+    }
   }
   
-  .color-change {
-    @include block-size(30px, 30px);
-  
-    border: 1px solid transparent;
-    background-color: transparent;
-    // background-image: url(./assets/icon-change.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    outline: transparent;
-  
-    &:hover {
-      border: 2px solid rgba(35, 245, 28, 0.548);
+  .custom-colors {
+    @include flex;
+    @include border($border-color);
+    align-items: center;
+
+    .color-box {
+      @include color-box(3rem, 3rem, $default-radius);
     }
   }
 }

@@ -1,9 +1,7 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {MatIconRegistry} from "@angular/material/icon";
-import {DomSanitizer} from "@angular/platform-browser";
-import {COLORS, TOOLS} from './entities/constants';
+import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ConfigTool} from '@shared/interfaces/config-tool.interface';
+import {COLORS, CUSTOM_COLORS, DEFAULT_COLOR, TOOLS} from './entities/constants';
 import {Tool} from './entities/interfaces';
-// import {setColorPen, setDefaultPenSize} from "@helpers/saveLocalStorage";
 
 @Component({
   selector: 'tools-container',
@@ -14,14 +12,15 @@ import {Tool} from './entities/interfaces';
 export class ToolsComponent implements OnInit {
   public readonly tools = TOOLS;
   public readonly colors = COLORS;
+  public readonly customColors = CUSTOM_COLORS;
+  public readonly defaultColor = DEFAULT_COLOR;
+  
+  public activeColor = this.defaultColor.colorValue;
   public value = 1;
 
-  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
-    this.matIconRegistry.addSvgIcon(
-      `icon_eraser`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl(`/assets/tools-icons/eraser.svg`)
-    );
-  }
+  @Output() config = new EventEmitter<ConfigTool>()
+
+  constructor() {}
 
   ngOnInit() {
   }
@@ -30,16 +29,26 @@ export class ToolsComponent implements OnInit {
     return true
   }
 
-  public setTool(tool: Tool) {
-
+  public setTool(tool: Tool): void {
+    const activeTool = {
+      nameTool: tool.name,
+      colorValue: this.activeColor
+    }
+    this.config.emit(activeTool)
   }
 
-  public setColor(colorValue: string): string {
+  public setColor(colorValue: string): void {
+    console.log(colorValue)
+    this.activeColor = colorValue;
+  }
+
+  public changeActiveColor(event: Event): void {    
+    this.activeColor = (event.target as HTMLInputElement).value
+  }
+
+  public addColorElement(colorValue: string): string {
     return `#${colorValue}`;
   }
-// const colorField = document.querySelector('.wrapper-color');
-// const currentColor = document.getElementById('current-color');
-// const prevColor = document.getElementById('prev-color');
 
 // function colorClickHandler(e) {
 //     const selectColor = e.target;

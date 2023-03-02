@@ -17,6 +17,11 @@ export const TOOLS: Tool[] = [
     name: 'Clear',
     icon: 'delete'
   },
+  {
+    name: 'Eraser',
+    icon: 'width_full',
+    color: 'ffffff'
+  },
 ];
 
 export const COLORS: ColorPalette[] = [
@@ -92,4 +97,20 @@ export const COLORS: ColorPalette[] = [
     name: 'braun',
     colorValue: 'b97a56'
   },
+];
+
+export const CUSTOM_COLORS: ColorPalette[] = [
+  {
+    name: 'white',
+    colorValue: 'ffffff'
+  },
+  {
+    name: 'gray',
+    colorValue: 'c3c3c3'
+  },
 ]
+
+export const DEFAULT_COLOR: ColorPalette = {
+  name: 'black',
+  colorValue: '000000'
+}
