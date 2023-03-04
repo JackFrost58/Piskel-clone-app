@@ -1,6 +1,7 @@
 @import 'font';
 @import 'vars';
 @import 'header';
+@import 'mixins';
 
 $font: "Roboto";
 
@@ -13,4 +14,8 @@ $font: "Roboto";
 body{
   margin: 0;
   padding: 0;
+}
+
+main {
+  @include flex;
 }

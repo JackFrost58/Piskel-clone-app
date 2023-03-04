@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ConfigTool} from '@interfaces/config-tool.interface';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +7,9 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public getConfigTool(item: any) {
-    console.log(item);
+  public configTool: ConfigTool;
+
+  public getConfigTool(item: ConfigTool) {
+    this.configTool = item;
   }
 }

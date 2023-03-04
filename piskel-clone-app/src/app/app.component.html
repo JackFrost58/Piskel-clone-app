@@ -13,7 +13,7 @@
   </header>
   <main>
       <tools-container (config)="getConfigTool($event)"></tools-container>
-      <canvas-container></canvas-container>
+      <canvas-container [toolConfig]="configTool"></canvas-container>
       <!-- <div class="frame-panel">
           <ul class="frame-containers">
               <li class="frame-container">
