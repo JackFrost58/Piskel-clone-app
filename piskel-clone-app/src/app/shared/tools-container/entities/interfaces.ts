@@ -5,6 +5,9 @@ export interface Tool {
 }
 
 export interface ColorPalette {
-  name: string;
   colorValue: string; 
+}
+
+export interface ColorCustomPalette extends ColorPalette {
+  id: number;
 }

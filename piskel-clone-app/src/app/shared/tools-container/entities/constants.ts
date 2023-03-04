@@ -1,116 +1,98 @@
-import {ColorPalette, Tool} from "./interfaces";
+import {NameTools} from "./enums";
+import {ColorCustomPalette, ColorPalette, Tool} from "./interfaces";
 
 export const TOOLS: Tool[] = [
   {
-    name: 'Paint bucket',
+    name: NameTools.Bucket,
     icon: 'format_color_fill'
   },
   {
-    name: 'Pen',
+    name: NameTools.Pen,
     icon: 'draw'
   },
   {
-    name: 'Stroke',
+    name: NameTools.Stroke,
     icon: 'border_color'
   },
   {
-    name: 'Clear',
+    name: NameTools.Clear,
     icon: 'delete'
   },
   {
-    name: 'Eraser',
+    name: NameTools.Eraser,
     icon: 'width_full',
-    color: 'ffffff'
+    color: '#ffffff'
   },
 ];
 
 export const COLORS: ColorPalette[] = [
   {
-    name: 'white',
-    colorValue: 'ffffff'
+    colorValue: '#ffffff'
   },
   {
-    name: 'gray',
-    colorValue: 'c3c3c3'
+    colorValue: '#c3c3c3'
   },
   {
-    name: 'darkGray',
-    colorValue: '585858'
+    colorValue: '#585858'
   },
   {
-    name: 'black',
-    colorValue: '000000'
+    colorValue: '#000000'
   },
   {
-    name: 'vine',
-    colorValue: '88001b'
+    colorValue: '#88001b'
   },
   {
-    name: 'lightRed',
-    colorValue: 'ec1c24'
+    colorValue: '#ec1c24'
   },
   {
-    name: 'orange',
-    colorValue: 'ff7f27'
+    colorValue: '#ff7f27'
   },
   {
-    name: 'gold',
-    colorValue: 'ffca18'
+    colorValue: '#ffca18'
   },
   {
-    name: 'lemon',
-    colorValue: 'fdeca6'
+    colorValue: '#fdeca6'
   },
   {
-    name: 'yellow',
-    colorValue: 'fff200'
+    colorValue: '#fff200'
   },
   {
-    name: 'lightGreen',
-    colorValue: 'c4ff0e'
+    colorValue: '#c4ff0e'
   },
   {
-    name: 'green',
-    colorValue: '0ed145'
+    colorValue: '#0ed145'
   },
   {
-    name: 'turquoise',
-    colorValue: '8cfffb'
+    colorValue: '#8cfffb'
   },
   {
-    name: 'blue',
-    colorValue: '00a8f3'
+    colorValue: '#00a8f3'
   },
   {
-    name: 'darkBlue',
     colorValue: '3f48cc'
   },
   {
-    name: 'purple',
-    colorValue: 'b83dba'
+    colorValue: '#b83dba'
   },
   {
-    name: 'pink',
-    colorValue: 'ffaec8'
+    colorValue: '#ffaec8'
   },
   {
-    name: 'braun',
-    colorValue: 'b97a56'
+    colorValue: '#b97a56'
   },
 ];
 
-export const CUSTOM_COLORS: ColorPalette[] = [
+export const CUSTOM_COLORS: ColorCustomPalette[] = [
   {
-    name: 'white',
-    colorValue: 'ffffff'
+    id: 1,
+    colorValue: '#ffffff'
   },
   {
-    name: 'gray',
-    colorValue: 'c3c3c3'
+    id: 2,
+    colorValue: '#c3c3c3'
   },
 ]
 
 export const DEFAULT_COLOR: ColorPalette = {
-  name: 'black',
-  colorValue: '000000'
+  colorValue: '#000000'
 }
