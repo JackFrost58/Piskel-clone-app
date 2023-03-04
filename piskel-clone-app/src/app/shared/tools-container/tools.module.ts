@@ -19,7 +19,7 @@ import {MatInputModule} from '@angular/material/input';
     FormsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
   ],
   declarations: [ToolsComponent],
   exports: [ToolsComponent]

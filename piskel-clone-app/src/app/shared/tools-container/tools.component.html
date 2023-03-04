@@ -6,17 +6,17 @@
         </mat-icon>
       </ng-container>
     </div>
-    <ng-container *ngIf="isDrawTools(tools[0])">
+    <ng-container *ngIf="isDrawTools()">
       <div class="draw-size">
         <div class="draw-size-title">
           <label>Thickness</label>
-          <mat-form-field>
-            <input matInput type="number" class="draw-size-number" max="100" [(ngModel)]="value">
+          <mat-form-field class="form-draw">
+            <input matInput type="number" class="draw-size-number" max="100" [(ngModel)]="thicknessTools"/>
             <label matSuffix>px</label>
           </mat-form-field>
         </div>
         <mat-slider min="1" max="100" step="1" [discrete]="false" [showTickMarks]="false">
-          <input matSliderThumb [(ngModel)]="value">
+          <input matSliderThumb [(ngModel)]="thicknessTools">
         </mat-slider>
       </div>
     </ng-container>
@@ -24,18 +24,23 @@
   <section class="colors-container">
     <div class="color-palette">
       <div class="current-color">
-        <input type="color" class="current-color-box" (click)="changeActiveColor($event)">
+        <mat-form-field class="current-color-form">
+          <input matInput type="color" class="current-color-box" [(ngModel)]="activeColor"/>
+        </mat-form-field>
       </div> 
       <div class="default-colors">
         <ng-container *ngFor="let color of colors">
-          <div class="color-box" [ngStyle]="{'background-color': addColorElement(color.colorValue)}" (click)="setColor(color.colorValue)"></div>
+          <div class="color-box" [ngStyle]="{'background-color': color.colorValue}" (click)="setColor(color.colorValue)"></div>
         </ng-container>
       </div>
       <div class="custom-colors">
         <ng-container *ngFor="let color of customColors">
-          <input type="color" class="color-box" [value]="addColorElement(color.colorValue)">
+          <input type="color" class="color-box" [value]="color.colorValue" (dblclick)="changeActiveColor($event)">
         </ng-container>
-        <button mat-icon-button color="primary">
+        <button
+          mat-icon-button color="primary"
+          *ngIf="customColors.length < MAX_CUSTOM_COLORS"
+          (click)="addCustomColor()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
