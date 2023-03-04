@@ -29,7 +29,7 @@
       "@enums/*": ["src/app/entities/enums/*"],
       "@constants/*": ["src/app/entities/constants/*"],
       "@interfaces/*": ["src/app/entities/interfaces/*"],
-      "@helpers/*": ["src/app/shared/helpers/*"],
+      "@helpers/*": ["src/app/entities/helpers/*"],
       "@shared/*": ["src/app/shared/*"],
     },
   },
