@@ -1,7 +1,7 @@
 import './animation.scss'
 
 import getImageFromFrames from '../utils/getImageFromFrames';
-import { pasteImage } from '../utils/drawImage';
+import {pasteImage} from '../utils/drawImage';
 
 const btnFullScreen = document.getElementById('fullScreen');
 const inputRange = document.getElementById('numberFps');

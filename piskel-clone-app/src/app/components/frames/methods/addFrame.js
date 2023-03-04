@@ -1,6 +1,6 @@
-import { addActiveClassToFrame } from "../../utils/frameUpdate";
+import {addActiveClassToFrame} from "../../utils/frameUpdate";
 import createFrame from '../createFrame';
-import { pasteImage } from "../../utils/drawImage";
+import {pasteImage} from "../../utils/drawImage";
 
 let frameContainers; 
 let canvas;

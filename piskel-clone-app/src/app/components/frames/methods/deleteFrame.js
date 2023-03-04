@@ -1,4 +1,4 @@
-import { updateFramesState } from "../../utils/frameUpdate";
+import {updateFramesState} from "../../utils/frameUpdate";
 
 let frameContainers;
 

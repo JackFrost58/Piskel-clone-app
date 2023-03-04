@@ -1,4 +1,4 @@
-import { updateFramesIndexes, updateFramesState } from "../../utils/frameUpdate";
+import {updateFramesIndexes, updateFramesState} from "../../utils/frameUpdate";
 
 function changeStyleFrame(currentFrame, position, zIndex, display, top) {
     const frame = currentFrame;

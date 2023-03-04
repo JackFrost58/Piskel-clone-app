@@ -1,5 +1,5 @@
 import addFrame from "../frames/methods/addFrame";
-import { pasteImage } from "./drawImage";
+import {pasteImage} from "./drawImage";
 
 function saveFrames(frames) {
     const framesToDataUrls = frames.map(frame => frame.children[1].toDataURL());

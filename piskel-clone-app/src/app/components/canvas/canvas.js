@@ -1,8 +1,8 @@
 import './canvas.scss';
-import { currentSizeCanvas } from './currentSizeCanvas';
+import {currentSizeCanvas} from './currentSizeCanvas';
 import getCoordinates from '../utils/getCoordinate';
-import { pasteOnFrame } from '../utils/drawImage';
-import { useTool, bucketAll, bucketPart } from '../tools/tools';
+import {pasteOnFrame} from '../utils/drawImage';
+import {useTool, bucketAll, bucketPart} from '../tools/tools';
 import convertHexToRgba from '../utils/hexToRgba';
 
 const canvas = document.querySelector('#canvas');

@@ -1,7 +1,7 @@
 import './tools.scss';
 import convertRgbaToHex from "../utils/rgbaToHex";
-import { pasteOnFrame } from '../utils/drawImage';
-import { setDefaultTool } from '../utils/saveLocalStorage';
+import {pasteOnFrame} from '../utils/drawImage';
+import {setDefaultTool} from '../utils/saveLocalStorage';
 
 const toolsMenu = document.querySelector('.menu__default');
 const buttonClear = document.getElementById('clear');
