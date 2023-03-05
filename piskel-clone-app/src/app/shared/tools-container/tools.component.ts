@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ConfigTool} from '@shared/interfaces/config-tool.interface';
+import {ConfigTool} from '@interfaces/config-tool.interface';
 import {COLORS, CUSTOM_COLORS, DEFAULT_COLOR, TOOLS} from './entities/constants';
 import {NameTools} from './entities/enums';
 import {Tool} from './entities/interfaces';
@@ -10,7 +10,7 @@ import {Tool} from './entities/interfaces';
   styleUrls: ['./tools.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ToolsComponent {
+export class ToolsComponent implements OnInit{
   public readonly MAX_CUSTOM_COLORS = 6;
   public readonly tools = TOOLS;
   public readonly colors = COLORS;
@@ -25,6 +25,15 @@ export class ToolsComponent {
 
   constructor() {}
 
+  ngOnInit(): void {
+    const activeTool = {
+      nameTool: this.currentTool,
+      colorValue: this.activeColor,
+      penSize: this.thicknessTools
+    }
+    this.config.emit(activeTool)
+  }
+
   public isDrawTools(): boolean {
     const drawToolsList = [NameTools.Pen, NameTools.Stroke, NameTools.Eraser];
     return drawToolsList.find((tool) => tool === this.currentTool) ? true : false
@@ -38,6 +47,8 @@ export class ToolsComponent {
     }
 
     this.currentTool = tool.name;
+    this.tools.forEach((tool) => tool.isActive = false);
+    tool.isActive = true;
 
     this.config.emit(activeTool)
   }

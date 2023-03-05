@@ -2,7 +2,12 @@
   <section class="tools-setting">
     <div class="tools">
       <ng-container *ngFor="let tool of tools">
-        <mat-icon class="icons" color="primary" [matTooltip]="tool.name" (click)="setTool(tool)">{{tool.icon}}
+        <mat-icon 
+          class="icons" 
+          [color]="tool.isActive ? 'accent' : 'primary'" 
+          [matTooltip]="tool.name" 
+          (click)="setTool(tool)">
+          {{tool.icon}}
         </mat-icon>
       </ng-container>
     </div>
