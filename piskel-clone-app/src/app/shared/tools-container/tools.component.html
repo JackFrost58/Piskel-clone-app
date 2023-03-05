@@ -16,12 +16,12 @@
         <div class="draw-size-title">
           <label>Thickness</label>
           <mat-form-field class="form-draw">
-            <input matInput type="number" class="draw-size-number" max="100" [(ngModel)]="thicknessTools"/>
+            <input matInput type="number" class="draw-size-number" max="5" [(ngModel)]="activeTool.penSize"/>
             <label matSuffix>px</label>
           </mat-form-field>
         </div>
-        <mat-slider min="1" max="100" step="1" [discrete]="false" [showTickMarks]="false">
-          <input matSliderThumb [(ngModel)]="thicknessTools">
+        <mat-slider min="1" max="5" step="1" [discrete]="false" [showTickMarks]="false">
+          <input matSliderThumb [(ngModel)]="activeTool.penSize">
         </mat-slider>
       </div>
     </ng-container>
@@ -30,7 +30,7 @@
     <div class="color-palette">
       <div class="current-color">
         <mat-form-field class="current-color-form">
-          <input matInput type="color" class="current-color-box" [(ngModel)]="activeColor"/>
+          <input matInput type="color" class="current-color-box" [(ngModel)]="activeTool.colorValue"/>
         </mat-form-field>
       </div> 
       <div class="default-colors">

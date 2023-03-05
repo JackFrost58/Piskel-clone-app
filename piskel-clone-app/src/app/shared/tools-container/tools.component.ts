@@ -17,57 +17,53 @@ export class ToolsComponent implements OnInit{
   public readonly customColors = CUSTOM_COLORS;
   public readonly defaultColor = DEFAULT_COLOR;
   
-  public activeColor = this.defaultColor.colorValue;
   public thicknessTools = 1;
-  public currentTool: string = NameTools.Pen;
+
+  public activeTool = {
+    nameTool: (NameTools.Pen) as string,
+    colorValue: this.defaultColor.colorValue,
+    penSize: this.thicknessTools
+  }
 
   @Output() config = new EventEmitter<ConfigTool>()
 
   constructor() {}
 
   ngOnInit(): void {
-    const activeTool = {
-      nameTool: this.currentTool,
-      colorValue: this.activeColor,
-      penSize: this.thicknessTools
-    }
-    this.config.emit(activeTool)
+    this.setConfig(this.activeTool);
   }
 
   public isDrawTools(): boolean {
     const drawToolsList = [NameTools.Pen, NameTools.Stroke, NameTools.Eraser];
-    return drawToolsList.find((tool) => tool === this.currentTool) ? true : false
+    return drawToolsList.find((tool) => tool === this.activeTool.nameTool) ? true : false
   }
 
   public setTool(tool: Tool): void {
-    const activeTool = {
-      nameTool: tool.name,
-      colorValue: tool.color ? tool.color : this.activeColor,
-      penSize: this.thicknessTools
-    }
-
-    this.currentTool = tool.name;
+    this.activeTool.nameTool = tool.name;
     this.tools.forEach((tool) => tool.isActive = false);
     tool.isActive = true;
 
-    this.config.emit(activeTool)
+    this.setConfig(this.activeTool)
   }
 
   public setColor(colorValue: string): void {
-    console.log(this.customColors)
-    console.log(colorValue)
-    this.activeColor = colorValue;
+    this.activeTool.colorValue = colorValue;
+    this.setConfig(this.activeTool)
   }
 
   public changeActiveColor(event: Event): void {    
-    this.activeColor = (event.target as HTMLInputElement).value
+    this.activeTool.colorValue = (event.target as HTMLInputElement).value
   }
 
   public addCustomColor(): void {
     const newCustomColor = {
       id: Date.now(),
-      colorValue: this.activeColor
+      colorValue: this.activeTool.colorValue
     }
     this.customColors.push(newCustomColor)
+  }
+
+  public setConfig(activeTool: ConfigTool): void {
+    this.config.emit(activeTool);
   }
 }
