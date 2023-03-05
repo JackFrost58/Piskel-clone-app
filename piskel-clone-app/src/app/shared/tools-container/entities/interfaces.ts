@@ -2,6 +2,7 @@ export interface Tool {
   name: string;
   icon: string;
   color?: string;
+  isActive: boolean;
 }
 
 export interface ColorPalette {

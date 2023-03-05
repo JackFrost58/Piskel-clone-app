@@ -4,24 +4,31 @@ import {ColorCustomPalette, ColorPalette, Tool} from "./interfaces";
 export const TOOLS: Tool[] = [
   {
     name: NameTools.Bucket,
-    icon: 'format_color_fill'
+    icon: 'format_color_fill',
+    isActive: false
   },
   {
     name: NameTools.Pen,
-    icon: 'draw'
+    icon: 'draw',
+    isActive: true
   },
   {
     name: NameTools.Stroke,
-    icon: 'border_color'
+    icon: 'border_color',
+    isActive: false
+
   },
   {
     name: NameTools.Clear,
-    icon: 'delete'
+    icon: 'delete',
+    isActive: false
+
   },
   {
     name: NameTools.Eraser,
     icon: 'width_full',
-    color: '#ffffff'
+    color: '#ffffff',
+    isActive: false
   },
 ];
 
