@@ -1,0 +1,20 @@
+@import 'mixins';
+@import 'vars';
+
+:host {
+  .canvas-container {
+    @include flex(column);
+    @include flex-center;
+    @include block-size(100%, 100%);
+
+    margin: 0 $default-offset;
+    background-color: #808080b0;
+  }
+
+  .canvas{
+    @include block-size(50rem, 50rem);
+    @include border($border-color);
+    image-rendering: pixelated;
+    background-color: $white;
+  }
+}
