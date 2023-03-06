@@ -1,0 +1,18 @@
+@import 'vars';
+@import 'mixins';
+
+:host {
+  header {
+    @include flex;
+    @include flex-center;
+  
+    padding: $default-offset-small;
+    margin-bottom: $default-offset;
+    box-shadow: 0px 4px 4px $shadow-color;
+  }
+  
+  .title {
+    font-size: 20px;
+    text-align: center;
+  }
+}
