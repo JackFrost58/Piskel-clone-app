@@ -7,6 +7,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {SliderModule} from '@shared/slider/slider.module';
 import {AnimationContainerComponent} from './animation-container.component';
 
 @NgModule({
@@ -20,6 +21,7 @@ import {AnimationContainerComponent} from './animation-container.component';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
+    SliderModule
   ],
   declarations: [AnimationContainerComponent],
   exports: [AnimationContainerComponent]
