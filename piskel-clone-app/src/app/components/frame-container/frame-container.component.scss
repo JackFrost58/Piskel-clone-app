@@ -1,91 +1,65 @@
 @import 'vars';
 @import 'mixins';
 
-.frame-panel {
-  max-height: 800px;
-  overflow-y: auto;
-}
-
-.frame-containers{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  .frame-container {
-    @include block-size(103px, 103px);
-
-    margin-bottom: 20px;
-  }
+.frames-container {
+  @include flex(column);
+  @include flex-center;
 }
 
 .frame {
-  @include block-size(100px, 100px);
+  @include block-size(9rem, 9rem);
   @include border($shadow-color);
   
   position: relative;
-   
+  margin: $default-offset-small;
+
   &:hover *{
     opacity: 1;
   }
-}
 
-.frame__button {
-  @include block-size(30px, 30px);
+  &-delete {
+    right: 0;
+  }
+  
+  &-duplicate {
+    bottom: 0;
+  }
 
-  right: 0;
-  z-index: 2;
-  position: absolute;
-  opacity: 0;
-  border: none;
-  background-repeat: no-repeat;
-  background-position: center;
-}
+  &-canvas {
+    @include block-size(9rem, 9rem);
+    image-rendering: pixelated;
+  }
+  
+  &-drag {
+    bottom: 0;
+    left: 0;
+  }
 
-.frame__delete {
-  right: 0;
-  background-image: url('./img/delete.svg');
-}
+  &-number {
+    @include block-size(2rem, 2rem);
+    @include flex;
+    @include flex-center;
+    position: absolute;
+    background-color: $primary;
+    color: $white
+  }
 
-.frame__duplicate {
-  bottom: 0;
-  background-image: url('./img/duplicate.svg');
-}
+  &-icon {
+    right: 0;
+    z-index: 2;
+    position: absolute;
+    opacity: 0;
+    color: $primary;
+    cursor: pointer;
 
-.frame__add {
-  @include block-size(100px, 50px);
-
-  border: 0 solid transparent;
-  background-image: url('./img/plus.svg');
-  background-position: left;
-  background-repeat: no-repeat;
-
-  &:hover {
-    background-color: rgba(35, 245, 28, 0.548);
+    &:hover {
+      color: $secondary
+    }
   }
 }
 
-.frame--active{
-  border: 2px solid rgba(35, 245, 28, 0.548);
-}
-
-.frame__number {
-  @include block-size(30px, 30px);
-  @include flex;
-  @include flex-center;
-  position: absolute;
-  background-color: rgba(35, 245, 28, 0.253);
-}
-
-.frame__canvas {
-  @include block-size(100px, 100px);
-  image-rendering: pixelated;
-}
-
-.frame__dragDrop {
-  bottom: 0;
-  left: 0;
-  background-image: url('./img/dragdrop.jpg');
-  background-size: 20px;
+.active {
+  @include border($primary);
 }
 
 .dragContainer {

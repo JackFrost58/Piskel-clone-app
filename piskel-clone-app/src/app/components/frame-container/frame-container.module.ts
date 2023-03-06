@@ -1,10 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FrameContainerComponent } from './frame-container.component';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {FrameContainerComponent} from './frame-container.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    MatButtonModule,
+    MatIconModule
   ],
   declarations: [FrameContainerComponent],
   exports: [FrameContainerComponent]

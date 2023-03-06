@@ -6,6 +6,18 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./frame-container.component.scss']
 })
 export class FrameContainerComponent implements OnInit {
+  public frames = [
+    {
+      id: 1,
+      canvasData: [],
+      isActive: true,
+    },
+    {
+      id: 2,
+      canvasData: [],
+      isActive: false,
+    }
+  ]
 
   constructor() { }
 

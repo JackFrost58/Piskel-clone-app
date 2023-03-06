@@ -1,14 +1,17 @@
-<div class="frame-panel">
-  <ul class="frame-containers">
-    <li class="frame-container">
-      <div class="frame frame--active">
-        <div class="frame__number">1</div>
-        <canvas class="frame__canvas"></canvas>
-        <button class="frame__button frame__duplicate"></button>
-        <button class="frame__button frame__delete"></button>
-        <button class="frame__button frame__dragDrop"></button>
+<div class="frames-container">
+  <div class="frames">
+    <ng-container *ngFor="let frame of frames">
+      <div class="frame" [ngClass]="{'active': frame.isActive? true : false}">
+        <div class="frame-number">{{frame.id}}</div>
+        <canvas class="frame-canvas"></canvas>
+        <mat-icon class="frame-icon frame-duplicate">content_copy</mat-icon>
+        <mat-icon class="frame-icon frame-delete">delete</mat-icon>
+        <mat-icon class="frame-icon frame-drag">open_with</mat-icon>
       </div>
-    </li>
-  </ul>
-  <button class="frame__add" id="add-frame">Add new frame</button>
+    </ng-container>
+  </div>
+  <button mat-fab extended color="primary">
+    <mat-icon>add</mat-icon>
+    Add frame
+  </button>
 </div>
