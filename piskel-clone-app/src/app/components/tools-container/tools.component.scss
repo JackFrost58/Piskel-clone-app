@@ -53,6 +53,15 @@
       display: none;
     }
   }
+
+  ::ng-deep .mdc-text-field{
+    background-color: transparent !important;
+  }
+  
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    min-height: auto;
+    padding: 0 0.4rem !important;
+  }
   
   .draw-size {
     @include flex(column);
