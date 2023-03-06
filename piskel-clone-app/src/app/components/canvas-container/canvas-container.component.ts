@@ -82,7 +82,6 @@ export class CanvasContainerComponent implements OnInit {
   }
 
   public canvasMouseUpHandler(e: MouseEvent): void {
-    console.log('set')
     let currentCoordinates;
     let targetColor;
     let replaceColor;
