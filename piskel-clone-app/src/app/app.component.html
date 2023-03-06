@@ -6,39 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <header class="header">
-      <div class="header__nav">
-        <h1 class="header__head">Simple-piskel-clone</h1>
-      </div>
-  </header>
+  <header-container></header-container>
   <main>
       <tools-container (config)="getConfigTool($event)"></tools-container>
-      <canvas-container [toolConfig]="configTool"></canvas-container>
-      <!-- <div class="frame-panel">
-          <ul class="frame-containers">
-              <li class="frame-container">
-                  <div class="frame frame--active">
-                      <div class="frame__number">1</div>
-                      <canvas class="frame__canvas"></canvas>
-                      <button class="frame__button frame__duplicate"></button>
-                      <button class="frame__button frame__delete"></button>
-                      <button class="frame__button frame__dragDrop"></button>
-                  </div>
-              </li>
-          </ul>
-          <button class="frame__add" id="add-frame">Add new frame</button>
-      </div>  -->
-      
-      <!-- <div class="animation">
-          <div class="animation__container">
-              <button class="animation__fullscreen" id="fullScreen"></button>
-              <canvas class="animation-preview" id="preview"></canvas>
-              <div class="animation__fps">
-                  <div class="animation__fps-number" id="fieldFps">0 fps</div>
-                  <input type="range" min="0" max="24" class="animation__range" id="numberFps">
-              </div>
-          </div>
-      </div> -->
+      <section class="wrapper">
+        <frame-container></frame-container>
+        <canvas-container [toolConfig]="configTool"></canvas-container>
+        <animation-container></animation-container>
+      </section>
   </main>
 </body> 
 </html>

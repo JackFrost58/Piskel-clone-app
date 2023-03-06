@@ -8,6 +8,11 @@
   align-items: center;
 }
 
+@mixin flex-position($justify-content: flex-start, $align-items: normal) {
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
 @mixin block-size($width, $height) {
   width: $width;
   height: $height;
