@@ -8,6 +8,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {SliderModule} from '@shared/slider/slider.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import {MatInputModule} from '@angular/material/input';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
+    SliderModule
   ],
   declarations: [ToolsComponent],
   exports: [ToolsComponent]

@@ -12,17 +12,7 @@
       </ng-container>
     </div>
     <ng-container *ngIf="isDrawTools()">
-      <div class="draw-size">
-        <div class="draw-size-title">
-          <label>Thickness</label>
-          <mat-form-field class="form-draw">
-            <input matInput type="number" class="draw-size-number" max="5" [(ngModel)]="activeTool.penSize"/>
-          </mat-form-field>
-        </div>
-        <mat-slider min="1" max="5" step="1" [discrete]="false" [showTickMarks]="false">
-          <input matSliderThumb [(ngModel)]="activeTool.penSize">
-        </mat-slider>
-      </div>
+      <slider-component [config]="CONFIG_SLIDER" (getSize)="setSize($event)"></slider-component>
     </ng-container>
   </section>
   <section class="colors-container">

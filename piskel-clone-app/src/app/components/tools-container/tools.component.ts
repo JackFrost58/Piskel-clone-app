@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Thickness} from '@constants/config-slider.namespace';
 import {ConfigTool} from '@interfaces/config-tool.interface';
 import {COLORS, CUSTOM_COLORS, DEFAULT_COLOR, TOOLS} from './entities/constants';
 import {NameTools} from './entities/enums';
@@ -10,7 +11,8 @@ import {Tool} from './entities/interfaces';
   styleUrls: ['./tools.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ToolsComponent implements OnInit{
+export class ToolsComponent implements OnInit {
+  public readonly CONFIG_SLIDER = Thickness;
   public readonly MAX_CUSTOM_COLORS = 6;
   public readonly tools = TOOLS;
   public readonly colors = COLORS;
@@ -65,5 +67,10 @@ export class ToolsComponent implements OnInit{
 
   public setConfig(activeTool: ConfigTool): void {
     this.config.emit(activeTool);
+  }
+
+  public setSize(size: number): void {
+    this.activeTool.penSize = size;
+    this.setConfig(this.activeTool);
   }
 }
