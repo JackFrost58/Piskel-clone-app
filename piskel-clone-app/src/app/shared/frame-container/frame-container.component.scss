@@ -1,0 +1,114 @@
+@import 'vars';
+@import 'mixins';
+
+.frame-panel {
+  max-height: 800px;
+  overflow-y: auto;
+}
+
+.frame-containers{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .frame-container {
+    @include block-size(103px, 103px);
+
+    margin-bottom: 20px;
+  }
+}
+
+.frame {
+  @include block-size(100px, 100px);
+  @include border($shadow-color);
+  
+  position: relative;
+   
+  &:hover *{
+    opacity: 1;
+  }
+}
+
+.frame__button {
+  @include block-size(30px, 30px);
+
+  right: 0;
+  z-index: 2;
+  position: absolute;
+  opacity: 0;
+  border: none;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.frame__delete {
+  right: 0;
+  background-image: url('./img/delete.svg');
+}
+
+.frame__duplicate {
+  bottom: 0;
+  background-image: url('./img/duplicate.svg');
+}
+
+.frame__add {
+  @include block-size(100px, 50px);
+
+  border: 0 solid transparent;
+  background-image: url('./img/plus.svg');
+  background-position: left;
+  background-repeat: no-repeat;
+
+  &:hover {
+    background-color: rgba(35, 245, 28, 0.548);
+  }
+}
+
+.frame--active{
+  border: 2px solid rgba(35, 245, 28, 0.548);
+}
+
+.frame__number {
+  @include block-size(30px, 30px);
+  @include flex;
+  @include flex-center;
+  position: absolute;
+  background-color: rgba(35, 245, 28, 0.253);
+}
+
+.frame__canvas {
+  @include block-size(100px, 100px);
+  image-rendering: pixelated;
+}
+
+.frame__dragDrop {
+  bottom: 0;
+  left: 0;
+  background-image: url('./img/dragdrop.jpg');
+  background-size: 20px;
+}
+
+.dragContainer {
+  @include block-size(90px, 90px);
+
+  background-color: rgba(35, 245, 28, 0.548);
+}
+
+.frame-dragged {
+  &::before{
+    @include block-size(100px, 100px);
+
+    content:"";
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    border:3px dashed rgba(35, 245, 28, 0.829);
+    border-radius:5px
+  }
+}
+
+.frame-state {
+  position: relative;
+  top: 0;
+  z-index: 1;
+}
