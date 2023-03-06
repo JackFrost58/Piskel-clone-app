@@ -3,7 +3,7 @@ import {convertColor} from '@helpers/convert-colors.helper';
 import {getCoordinates} from '@helpers/coordinates.helper';
 import {ConfigTool} from '@interfaces/config-tool.interface';
 import {Point} from '@interfaces/coordinate.interface';
-import {NameTools} from '@shared/tools-container/entities/enums';
+import {NameTools} from '@components/tools-container/entities/enums';
 
 @Component({
   selector: 'canvas-container',

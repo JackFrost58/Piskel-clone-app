@@ -27,6 +27,7 @@
     "paths": {
       "@services/*": ["src/app/shared/services/*"],
       "@enums/*": ["src/app/entities/enums/*"],
+      "@components/*": ["src/app/components/*"],
       "@constants/*": ["src/app/entities/constants/*"],
       "@interfaces/*": ["src/app/entities/interfaces/*"],
       "@helpers/*": ["src/app/entities/helpers/*"],

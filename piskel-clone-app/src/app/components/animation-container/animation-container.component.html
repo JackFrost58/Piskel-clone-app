@@ -1,0 +1,15 @@
+<div class="animation">
+  <div class="animation__container">
+    <mat-icon class="animation__fullscreen">fullscreen</mat-icon>
+    <canvas class="animation-preview" id="preview"></canvas>
+    <div class="draw-size-title">
+      <label>Thickness</label>
+      <mat-form-field class="form-draw">
+        <!-- <input matInput type="number" class="draw-size-number" max="5" [(ngModel)]="activeTool.penSize"/> -->
+      </mat-form-field>
+    </div>
+    <mat-slider min="1" max="5" step="1" [discrete]="false" [showTickMarks]="false">
+      <!-- <input matSliderThumb [(ngModel)]="activeTool.penSize"> -->
+    </mat-slider>
+  </div>
+</div>
