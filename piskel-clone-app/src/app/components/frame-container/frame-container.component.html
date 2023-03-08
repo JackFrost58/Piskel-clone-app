@@ -1,16 +1,22 @@
 <div class="frames-container">
-  <div class="frames">
-    <ng-container *ngFor="let frame of frames">
-      <div class="frame" [ngClass]="{'active': frame.isActive? true : false}">
-        <div class="frame-number">{{frame.id}}</div>
+  <div cdkDropList class="frames" (cdkDropListDropped)="drop($event)">
+    <ng-container *ngFor="let frame of frames; let index = index">
+      <div 
+        class="frame"
+        (click)="selectFrame(frame)"
+        [ngClass]="{'active': frame.isActive? true : false}"
+        cdkDrag
+        [cdkDragDisabled]="isMinCountFrames()"
+        cdkDragLockAxis="y"
+      >
+        <span class="frame-number">{{index + 1}}</span>
         <canvas class="frame-canvas"></canvas>
-        <mat-icon class="frame-icon frame-duplicate">content_copy</mat-icon>
-        <mat-icon class="frame-icon frame-delete">delete</mat-icon>
-        <mat-icon class="frame-icon frame-drag">open_with</mat-icon>
+        <mat-icon class="frame-icon frame-duplicate" (click)="dublicateFrame(frame)">content_copy</mat-icon>
+        <mat-icon class="frame-icon frame-delete" (click)="removeFrame(frame.id)">delete</mat-icon>
       </div>
     </ng-container>
   </div>
-  <button mat-fab extended color="primary">
+  <button mat-fab extended color="primary" (click)="addFrame()">
     <mat-icon>add</mat-icon>
     Add frame
   </button>

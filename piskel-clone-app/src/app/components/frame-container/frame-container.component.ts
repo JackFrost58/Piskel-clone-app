@@ -1,4 +1,6 @@
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Component, OnInit} from '@angular/core';
+import {Frame} from './entities/frame-container.interface';
 
 @Component({
   selector: 'frame-container',
@@ -6,16 +8,11 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./frame-container.component.scss']
 })
 export class FrameContainerComponent implements OnInit {
-  public frames = [
+  public frames: Frame[] = [
     {
       id: 1,
       canvasData: [],
       isActive: true,
-    },
-    {
-      id: 2,
-      canvasData: [],
-      isActive: false,
     }
   ]
 
@@ -24,56 +21,36 @@ export class FrameContainerComponent implements OnInit {
   ngOnInit() {
   }
 
-  // import {updateFramesIndexes, addActiveClassToFrame} from '../utils/frameUpdate';
-  // import dublicateFrame from './methods/dublicateFrame';
-  // import deleteFrame from './methods/deleteFrame';
-  // import addFrame from './methods/addFrame';
-  // import {pasteImage} from '../utils/drawImage';
-  // import dragAndDrop from './methods/dragAndDrop';
-  // import {drawFramesUrl, saveFrames} from '../utils/saveLocalStorage';
+  public addFrame(): void {
+    const newFrame: Frame = {
+      id: Date.now(),
+      canvasData: [],
+      isActive: false
+    }
+    this.frames.push(newFrame)
+  }
 
-  // const frameContainers = document.querySelector('.frame-containers');
-  // const btnAddFrame = document.getElementById('add-frame');
-  // const startFrame = document.querySelector('.frame');
-  // let frames = [startFrame];
-  // let canvas;
+  public removeFrame(id: number): void {
+    this.frames = this.frames.filter((frame) => frame.id !== id);
+    this.frames[0].isActive = true;
+  }
 
-  // function addFrameClickHandler() {
-  //     addFrame(frames);
-  // }
+  public dublicateFrame(frame: Frame): void {
+    this.addFrame();
+  }
 
-  // function windowUnloadHandler() {
-  //     saveFrames(frames);
-  // }
+  public selectFrame(frame: Frame): void {
+    this.frames.forEach((frame) => frame.isActive = false);
+    frame.isActive = true;
+  }
+  
 
-  // function windowLoadHandler() {
-  //     drawFramesUrl(frames);
-  // }
+  public drop(event: CdkDragDrop<Frame[]>): void {
+    moveItemInArray(this.frames, event.previousIndex, event.currentIndex);
+  }
 
-  // function framesContainerClickHandler(e) {
-  //     const frame = e.target.parentElement;
-  //     const classesEl = e.target.classList;
-  //     canvas = document.getElementById('canvas');
-
-  //     if (classesEl.contains('frame__canvas')) {
-  //         addActiveClassToFrame(frame, frames);
-  //         pasteImage(e.target.toDataURL(), canvas);
-  //     } else if (classesEl.contains('frame__duplicate')) {
-  //         frames = dublicateFrame(frame, canvas);
-  //         updateFramesIndexes(frames);
-  //     } else if (classesEl.contains('frame__delete') && frames.length > 1) {
-  //         frames = deleteFrame(frame, frames);
-  //         updateFramesIndexes(frames);
-  //     }
-  // }
-
-  // function initFrames() {
-  //     frameContainers.addEventListener('click', framesContainerClickHandler);
-  //     frameContainers.addEventListener('mousedown', dragAndDrop);
-  //     btnAddFrame.addEventListener('click', addFrameClickHandler);
-  //     window.addEventListener('load', windowLoadHandler);
-  //     window.addEventListener('unload', windowUnloadHandler);
-  // }
-
-  // export default initFrames;
+  public isMinCountFrames(){
+    const MIN_FRAME = 1;
+    return this.frames.length <= MIN_FRAME;
+  }
 }
