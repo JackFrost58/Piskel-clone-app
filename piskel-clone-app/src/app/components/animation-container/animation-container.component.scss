@@ -1,39 +1,30 @@
 @import 'vars';
 @import 'mixins';
 
-.animation-preview {
-  @include block-size(99%, 200px);
-  @include border;
+:host {    
+  .animation {
+    position: relative;
+    width: 100%;
+
+    &-preview {
+      @include frame-size(18rem);
+      @include border;
+      
+      image-rendering: pixelated;
+      background-color: $white;
+    }
+  }
   
-  image-rendering: pixelated;
-  background-color: $white;
-}
+  .icon {
+    @include border(transparent);
+    
+    position: absolute;
+    right: 0;
+    color: $primary;
+    cursor: pointer;
   
-.animation__container {
-  position: relative;
-  width: 100%;
-}
-
-.animation__fullscreen {
-  @include border(transparent);
-  
-  position: absolute;
-  right: 0;
-  cursor: pointer;
-}
-
-.animation__fps {
-  @include flex;
-  background: $white;
-  box-shadow: 0px 4px 4px $shadow-color;
-}
-
-.animation__fps-number {
-  @include flex;
-  @include flex-center;
-
-  width: 55px;
-  margin-right: 5px;
-
-  text-transform: uppercase;
+    &:hover {
+      color: $secondary;
+    }
+  }
 }
