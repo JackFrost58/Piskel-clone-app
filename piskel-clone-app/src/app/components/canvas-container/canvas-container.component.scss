@@ -2,12 +2,12 @@
 @import 'vars';
 
 :host {
+  margin: 0 $default-offset;
   .canvas-container {
     @include flex(column);
     @include flex-center;
     @include block-size(100%, 100%);
 
-    margin: 0 $default-offset;
     background-color: #808080b0;
   }
 
