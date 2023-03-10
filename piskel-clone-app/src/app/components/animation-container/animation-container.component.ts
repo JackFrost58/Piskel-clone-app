@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FPS} from '@constants/config-slider.namespace';
 
 @Component({
@@ -8,13 +8,19 @@ import {FPS} from '@constants/config-slider.namespace';
 })
 export class AnimationContainerComponent implements OnInit {
   public readonly CONFIG_SLIDER = FPS;
+  public isFullscreen = false;
+  constructor() {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
+  @ViewChild('preview', {static: true}) preview: ElementRef<HTMLCanvasElement>;
 
   public getItem(item: any){
     console.log(item)
+  }
+
+  public setFullscreen(): void {
+    this.isFullscreen = false;
+    this.preview.nativeElement.requestFullscreen();
   }
 }
