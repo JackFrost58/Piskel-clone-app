@@ -1,7 +1,6 @@
 import getImageFromFrames from '../utils/getImageFromFrames';
 import {pasteImage} from '../utils/drawImage';
 
-const btnFullScreen = document.getElementById('fullScreen');
 const inputRange = document.getElementById('numberFps');
 const fieldFps = document.getElementById('fieldFps');
 const previewWindow = document.getElementById('preview');
@@ -55,18 +54,3 @@ function setStartFps() {
 
   startAnimation(startFps);
 }
-
-function fullScreenClickHandler() {
-  previewWindow.requestFullscreen() ||
-  previewWindow.webkitRequestFullscreen() ||
-  previewWindow.mozRequestFullscreen();
-}
-
-function initAnimation() {
-  setStartFps();
-
-  inputRange.addEventListener('input', setCurrentFpsInputHandler);
-  btnFullScreen.addEventListener('click', fullScreenClickHandler);
-}
-
-export default initAnimation;
