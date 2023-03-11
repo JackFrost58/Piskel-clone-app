@@ -4,12 +4,16 @@ import {getCoordinates} from '@helpers/coordinates.helper';
 import {ConfigTool} from '@interfaces/config-tool.interface';
 import {Point} from '@interfaces/coordinate.interface';
 import {NameTools} from '@components/tools-container/entities/enums';
+import {FrameContentService} from '@services/frame-content.service';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
 @Component({
   selector: 'canvas-container',
   templateUrl: './canvas-container.component.html',
   styleUrls: ['./canvas-container.component.scss']
 })
+
+@UntilDestroy()
 export class CanvasContainerComponent implements OnInit {
   @Input() toolConfig: ConfigTool;
 
@@ -18,21 +22,25 @@ export class CanvasContainerComponent implements OnInit {
   public context: CanvasRenderingContext2D | null;
 
   public isDrawing = false;
-  
-  constructor() {}
+  public sizeCanvas = 32;
 
-  ngOnInit() {
+  constructor(private frameContentService: FrameContentService) {}
+
+  ngOnInit(): void {
     this.startCoordinates = {x: 0, y: 0}
-    this.canvas.nativeElement.width = 32;
-    this.canvas.nativeElement.height = 32;
+    this.canvas.nativeElement.width = this.sizeCanvas;
+    this.canvas.nativeElement.height = this.sizeCanvas;
+    this.context = this.canvas.nativeElement.getContext('2d');
+
+    this.frameContentService.canvasContent
+    .pipe(untilDestroyed(this))
+    .subscribe((canvasContent: string) => {
+      this.setCanvasContent(canvasContent)
+    })
   }
 
   @ViewChild('canvasElement', {static: true})
   canvas: ElementRef<HTMLCanvasElement>;
-
-  ngAfterViewInit(): void {
-    this.context = this.canvas.nativeElement.getContext('2d');
-  }
 
   public useTool(startCoord: Point, currentCoord: Point, color: string, penSize: number): void {
     if (this.context !== null) {    
@@ -85,6 +93,7 @@ export class CanvasContainerComponent implements OnInit {
     let currentCoordinates;
     let targetColor;
     let replaceColor;
+
     if (this.toolConfig.colorValue && this.toolConfig.penSize && this.context !== null) {
       switch(this.toolConfig.nameTool) {
         case NameTools.Stroke: // add to schema line on draw
@@ -103,6 +112,7 @@ export class CanvasContainerComponent implements OnInit {
     }
     
     this.isDrawing = false;
+    this.frameContentService.setContentFrame(this.canvas.nativeElement.toDataURL());
   }
   
   public clearCanvas(): void {
@@ -169,6 +179,21 @@ export class CanvasContainerComponent implements OnInit {
           this.context.fillRect(topNode.x, topNode.y, 1, 1);
           queue.push(topNode);
         }
+      }
+    }
+  }
+
+  public setCanvasContent(content: string) {
+    if (this.context !== null) {
+      this.context.fillStyle = '#fff';
+      this.context.fillRect(0, 0, this.sizeCanvas, this.sizeCanvas);
+
+      if (content) {
+        const image = new Image();
+        image.src = content;
+
+        this.context.imageSmoothingEnabled = false;
+        this.context.drawImage(image, 0, 0);
       }
     }
   }
