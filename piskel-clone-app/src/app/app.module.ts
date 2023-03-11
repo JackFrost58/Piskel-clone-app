@@ -9,6 +9,7 @@ import {HeaderContainerModule} from '@components/header-container/header-contain
 import {ToolsModule} from '@components/tools-container/tools.module';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
+import {FrameContentService} from '@services/frame-content.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import {AppComponent} from './app.component';
     AnimationContainerModule,
     FrameContainerModule,
   ],
-  providers: [],
+  providers: [
+    FrameContentService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
