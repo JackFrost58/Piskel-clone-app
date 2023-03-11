@@ -25,7 +25,7 @@
       "dom"
     ],
     "paths": {
-      "@services/*": ["src/app/shared/services/*"],
+      "@services/*": ["src/app/services/*"],
       "@enums/*": ["src/app/entities/enums/*"],
       "@components/*": ["src/app/components/*"],
       "@constants/*": ["src/app/entities/constants/*"],
