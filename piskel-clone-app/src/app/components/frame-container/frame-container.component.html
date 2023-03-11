@@ -10,7 +10,7 @@
         cdkDragLockAxis="y"
       >
         <span class="frame-number">{{index + 1}}</span>
-        <canvas class="frame-canvas"></canvas>
+        <img [src]="frame.canvasData" class="frame-canvas">
         <mat-icon class="frame-icon frame-duplicate" (click)="dublicateFrame(frame)">content_copy</mat-icon>
         <mat-icon class="frame-icon frame-delete" (click)="removeFrame(frame.id)">delete</mat-icon>
       </div>
