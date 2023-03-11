@@ -29,8 +29,6 @@ export class ToolsComponent implements OnInit {
 
   @Output() config = new EventEmitter<ConfigTool>()
 
-  constructor() {}
-
   ngOnInit(): void {
     this.setConfig(this.activeTool);
   }
@@ -44,6 +42,10 @@ export class ToolsComponent implements OnInit {
     this.activeTool.nameTool = tool.name;
     this.tools.forEach((tool) => tool.isActive = false);
     tool.isActive = true;
+
+    if (tool.color) {
+      this.setColor(tool.color);
+    }
 
     this.setConfig(this.activeTool)
   }
