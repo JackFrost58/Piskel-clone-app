@@ -1,4 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatMenuTrigger} from '@angular/material/menu';
+import {SizeService} from '@services/size.service';
+import {listSizes} from './entities/list-sizes.constant';
 
 @Component({
   selector: 'header-container',
@@ -6,10 +9,16 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./header-container.component.scss']
 })
 export class HeaderContainerComponent implements OnInit {
+  public sizes = listSizes;
+  public currentSize = listSizes[0];
 
-  constructor() { }
+  constructor(private sizeService: SizeService) {}
 
-  ngOnInit() {
+  @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
+
+  ngOnInit(): void {}
+
+  public setSize(size: number) {
+    this.sizeService.sizeCanvas(size);
   }
-
 }

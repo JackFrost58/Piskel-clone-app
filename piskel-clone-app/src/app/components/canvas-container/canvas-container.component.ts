@@ -7,6 +7,7 @@ import {NameTools} from '@components/tools-container/entities/enums';
 import {FrameContentService} from '@services/frame-content.service';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {ContentCanvas} from '@helpers/content-frame.helper';
+import {SizeService} from '@services/size.service';
 
 @Component({
   selector: 'canvas-container',
@@ -25,12 +26,19 @@ export class CanvasContainerComponent implements OnInit {
   public isDrawing = false;
   public sizeCanvas = 32;
 
-  constructor(private frameContentService: FrameContentService) {}
+  constructor(private frameContentService: FrameContentService, private sizeService: SizeService) {}
 
   ngOnInit(): void {
-    this.startCoordinates = {x: 0, y: 0}
-    this.canvas.nativeElement.width = this.sizeCanvas;
-    this.canvas.nativeElement.height = this.sizeCanvas;
+    this.startCoordinates = {x: 0, y: 0};
+    
+    this.sizeService.size
+    .pipe(untilDestroyed(this))
+    .subscribe((newSize: number) => {
+      this.canvas.nativeElement.width = newSize;
+      this.canvas.nativeElement.height = newSize;
+      this.sizeCanvas = newSize
+    })
+    
     this.context = this.canvas.nativeElement.getContext('2d');
 
     this.frameContentService.canvasContent

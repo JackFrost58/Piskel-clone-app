@@ -5,8 +5,6 @@ import {BehaviorSubject} from 'rxjs';
   providedIn: 'root'
 })
 export class FrameContentService {
-  constructor() { }
-
   public contentFrame = new BehaviorSubject(''); 
   public canvasContent = new BehaviorSubject('');
 
