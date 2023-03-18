@@ -2,6 +2,7 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Component, OnInit} from '@angular/core';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {FrameContentService} from '@services/frame-content.service';
+import {FramesService} from '@services/frames.service';
 import {Frame} from './entities/frame-container.interface';
 
 @Component({
@@ -27,7 +28,10 @@ export class FrameContainerComponent implements OnInit {
 
   public activeFrame: Frame | undefined;
 
-  constructor(private frameContentService: FrameContentService) { }
+  constructor(
+    private frameContentService: FrameContentService, 
+    private framesService: FramesService
+  ) {}
 
   ngOnInit(): void {
     this.frameContentService.contentFrame
@@ -37,7 +41,8 @@ export class FrameContainerComponent implements OnInit {
       if (this.activeFrame) {
         this.activeFrame.canvasData = content;
       }
-    })
+    });
+    this.framesService.framesData = this.frames;
   }
 
   public addFrame(content = ''): void {
@@ -46,12 +51,14 @@ export class FrameContainerComponent implements OnInit {
       canvasData: content,
       isActive: false
     }
-    this.frames.push(newFrame)
+    this.frames.push(newFrame);
+    this.framesService.framesData = this.frames;
   }
 
   public removeFrame(id: number): void {
     this.frames = this.frames.filter((frame) => frame.id !== id);
     this.frames[0].isActive = true;
+    this.framesService.framesData = this.frames;
   }
 
   public dublicateFrame(frame: Frame): void {
@@ -65,7 +72,7 @@ export class FrameContainerComponent implements OnInit {
     this.frameContentService.setContentCanvas(frame.canvasData)
   }
 
-  private getActiveFrame():  Frame | undefined {
+  private getActiveFrame(): Frame | undefined {
     return this.frames.find((frame) => frame.isActive === true);
   }
 
