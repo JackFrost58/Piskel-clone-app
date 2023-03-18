@@ -1,0 +1,11 @@
+<div class="slider">
+  <div class="slider-title">
+    <label>{{config.title}}</label>
+    <mat-form-field class="form-draw">
+      <input matInput type="number" class="slider-number" [max]="config.max" [(ngModel)]="sliderSize"/>
+    </mat-form-field>
+  </div>
+  <mat-slider [min]="config.min" [max]="config.max" [step]="config.min" [discrete]="false" [showTickMarks]="false" (mouseup)="onMouseUpHandler(sliderSize)">
+    <input matSliderThumb [(ngModel)]="sliderSize">
+  </mat-slider>
+</div>

@@ -1,0 +1,45 @@
+@mixin flex($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+}
+
+@mixin flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-position($justify-content: flex-start, $align-items: normal) {
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin block-size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin color-box($width, $height, $border-radius) {
+  @include block-size($width, $height);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  
+  &::-webkit-color-swatch {
+    border-radius: $border-radius;
+    border: none;
+    box-shadow: 1px 2px 2px 0px $shadow-color;
+  }
+}
+
+@mixin border($color: $primary, $size: 1px, $radius: 0) {
+  border: $size solid $color;
+  border-radius: $radius;
+}
+
+@mixin frame-size($size) {
+  width: $size;
+  height: $size;
+}
