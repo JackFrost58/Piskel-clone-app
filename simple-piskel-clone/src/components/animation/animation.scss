@@ -1,0 +1,46 @@
+@import '../../css/var';
+
+.animation-preview {
+    @include sizeBox(99%, 200px);
+  
+    border: 1px solid red;
+    image-rendering: pixelated;
+    background-color: white;
+}
+  
+.animation__container {
+    position: relative;
+    width: 100%;
+}
+
+.animation__fullscreen {
+    @include sizeBox(30px, 30px);
+
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    border: 1px solid transparent;
+    background-image: url('./img/fullscreen.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &:hover {
+        border: 2px solid rgba(35, 245, 28, 0.548);
+    }
+}
+
+.animation__fps {
+    display: flex;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24), 0px 0px 4px rgba(0, 0, 0, 0.12);
+}
+
+.animation__fps-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55px;
+    margin-right: 5px;
+
+    text-transform: uppercase;
+}

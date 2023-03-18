@@ -1,0 +1,116 @@
+@import '../../css/var';
+
+.frame-panel {
+    max-height: 800px;
+    overflow-y: auto;
+}
+
+.frame-containers{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .frame-container {
+    @include sizeBox(103px, 103px);
+
+    margin-bottom: 20px;
+  }
+}
+
+.frame {
+    @include sizeBox(100px, 100px);
+
+    position: relative;
+    border: 1px solid black;
+   
+    &:hover *{
+        opacity: 1;
+    }
+}
+
+.frame__button {
+    @include sizeBox(30px, 30px);
+
+    right: 0;
+    z-index: 2;
+    position: absolute;
+    opacity: 0;
+    border: none;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.frame__delete {
+    right: 0;
+    background-image: url(./img/delete.svg);
+}
+
+.frame__duplicate {
+    bottom: 0;
+    background-image: url(./img/duplicate.svg);
+}
+
+.frame__add {
+    @include sizeBox(100px, 50px);
+
+    border: 0 solid transparent;
+    background-image: url(./img/plus.svg);
+    background-position: left;
+    background-repeat: no-repeat;
+
+    &:hover {
+        background-color: rgba(35, 245, 28, 0.548);
+    }
+}
+
+.frame--active{
+    border: 2px solid rgba(35, 245, 28, 0.548);
+}
+
+.frame__number {
+    @include sizeBox(30px, 30px);
+
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(35, 245, 28, 0.253);
+}
+
+.frame__canvas {
+    @include sizeBox(100px, 100px);
+    image-rendering: pixelated;
+}
+
+.frame__dragDrop {
+   bottom: 0;
+   left: 0;
+   background-image: url(./img/dragdrop.jpg);
+   background-size: 20px;
+}
+
+.dragContainer {
+    @include sizeBox(90px, 90px);
+
+    background-color: rgba(35, 245, 28, 0.548);
+}
+
+.frame-dragged {
+
+    &::before{
+        @include sizeBox(100px, 100px);
+
+        content:"";
+        position:absolute;
+        left:-3px;
+        top:-3px;
+        border:3px dashed rgba(35, 245, 28, 0.829);
+        border-radius:5px
+    }
+}
+
+.frame-state {
+    position: relative;
+    top: 0;
+    z-index: 1;
+}

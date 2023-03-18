@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simple-piskel-clone</title>
+   
+</head>
+<body>
+    <header class="header">
+        <div class="header__nav">
+            <h1 class="header__head">Simple-piskel-clone</h1>
+            <a href="../landing/landing.html">Link</a>
+        </div>
+        <div class="header__menu">
+            <button class="header__button-login" id="login">Login</button>
+        </div>
+    </header>
+    <main>
+        <div class="tools-container">
+            <div class="menu__default">
+                <button class="button__element" id="bucketAll">
+                    <img class = "icons" src="../components/tools/img/icon-bucket.svg" alt="bucket">
+                    Paint bucket(All)
+                </button>
+                <button class="button__element" id="bucketPart">
+                    <img class = "icons" src="../components/tools/img/icon-bucket.svg" alt="bucket">
+                    Paint bucket
+                </button>
+                <button  class="button__element" id ="pen">
+                    <img class = "icons" src="../components/tools/img/icon-pen.svg" alt="pen">
+                    Pen
+                </button>
+                <button class="button__element" id="eraser"> 
+                    <img class = "icons" src="../components/tools/img/icon-eraser.svg" alt="eraser">
+                    Eraser
+                </button>
+                <button class="button__element" id="stroke"> 
+                    <img class = "icons icon-stroke" src="../components/tools/img/icon-stroke.png" alt="stroke">
+                    Stroke
+                </button>
+                <button class="button__element"  id="clear">
+                    <img class = "icons" src="../components/tools/img/icon-clear.svg" alt="clear">
+                    Clear
+                </button>
+            </div>
+            <div class="pen-size-container">
+                <div class="pen-size" data-size="1"></div>
+                <div class="pen-size" data-size="2"></div>
+                <div class="pen-size" data-size="3"></div>
+                <div class="pen-size" data-size="4"></div>
+            </div>
+            <div class="wrapper-color">
+                <input type="color" value="#009900" class="color-box primary-color" id="current-color">  
+                <input type="color" value="#000000" class="color-box preview-color" id="prev-color">
+                <button class="color-change" id="colorChange"></button>
+            </div>
+        </div>
+        <div class="frame-panel">
+            <ul class="frame-containers">
+                <li class="frame-container">
+                    <div class="frame frame--active">
+                        <div class="frame__number">1</div>
+                        <canvas class="frame__canvas"></canvas>
+                        <button class="frame__button frame__duplicate"></button>
+                        <button class="frame__button frame__delete"></button>
+                        <button class="frame__button frame__dragDrop"></button>
+                    </div>
+                </li>
+            </ul>
+            <button class="frame__add" id="add-frame">Add new frame</button>
+        </div> 
+        <div class="wrapper">
+            <div class="canvas-size">
+                <p>Size field</p>
+                <select class="select-size" id="size">
+                    <option value="32">32x32</option>
+                    <option value="64">64x64</option>
+                    <option value="128">128x128</option>
+                </select>
+            </div>
+            <div class="place">
+                <canvas class="canvas" id="canvas"></canvas>
+            </div>    
+        </div>
+        <div class="animation">
+            <div class="animation__container">
+                <button class="animation__fullscreen" id="fullScreen"></button>
+                <canvas class="animation-preview" id="preview"></canvas>
+                <div class="animation__fps">
+                    <div class="animation__fps-number" id="fieldFps">0 fps</div>
+                    <input type="range" min="0" max="24" class="animation__range" id="numberFps">
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+    
+</html>
