@@ -2,7 +2,7 @@ import {ConfigSlider} from "@interfaces/config-slider.interface";
 
 export const FPS: ConfigSlider = {
   title: 'FPS',
-  max: 50,
+  max: 25,
   min: 0,
   step: 1,
 };
