@@ -1,5 +1,5 @@
 <div class="animation">
   <mat-icon class="icon" (click)="setFullscreen()">fullscreen</mat-icon>
   <canvas class="animation-preview" #preview></canvas>
-  <slider-component [config]="CONFIG_SLIDER"></slider-component>
+  <slider-component [config]="CONFIG_SLIDER" (getSize)="getFPS($event)"></slider-component>
 </div>
