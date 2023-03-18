@@ -10,9 +10,8 @@ export class SliderComponent implements OnInit {
   @Input() config: ConfigSlider;
 
   @Output() getSize = new EventEmitter<number>();
-  public sliderSize: number;
 
-  constructor() {}
+  public sliderSize: number;
 
   ngOnInit(): void {
     this.sliderSize = this.config.min
