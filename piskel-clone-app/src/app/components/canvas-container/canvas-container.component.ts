@@ -6,6 +6,7 @@ import {Point} from '@interfaces/coordinate.interface';
 import {NameTools} from '@components/tools-container/entities/enums';
 import {FrameContentService} from '@services/frame-content.service';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {ContentCanvas} from '@helpers/content-frame.helper';
 
 @Component({
   selector: 'canvas-container',
@@ -35,7 +36,7 @@ export class CanvasContainerComponent implements OnInit {
     this.frameContentService.canvasContent
     .pipe(untilDestroyed(this))
     .subscribe((canvasContent: string) => {
-      this.setCanvasContent(canvasContent)
+      ContentCanvas.setCanvasContent(canvasContent, this.context, this.sizeCanvas)
     })
   }
 
@@ -179,21 +180,6 @@ export class CanvasContainerComponent implements OnInit {
           this.context.fillRect(topNode.x, topNode.y, 1, 1);
           queue.push(topNode);
         }
-      }
-    }
-  }
-
-  public setCanvasContent(content: string) {
-    if (this.context !== null) {
-      this.context.fillStyle = '#fff';
-      this.context.fillRect(0, 0, this.sizeCanvas, this.sizeCanvas);
-
-      if (content) {
-        const image = new Image();
-        image.src = content;
-
-        this.context.imageSmoothingEnabled = false;
-        this.context.drawImage(image, 0, 0);
       }
     }
   }
