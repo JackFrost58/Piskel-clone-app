@@ -1,21 +1,16 @@
 export class ContentCanvas {
-  // public saveFrames(frames: any) {
-  //   const framesToDataUrls = frames.map(frame => frame.children[1].toDataURL());
-  
-  //   localStorage.setItem('allFrames', JSON.stringify(framesToDataUrls));
-  // }
-  
-  // public drawFramesUrl(frames: any) {
-  //   const allFrames = JSON.parse(localStorage.getItem('allFrames'));
-  //   const canvas = document.getElementById('canvas');
-  
-  //   allFrames.forEach((url, index) => {
-  //     if (index !== 0) {
-  //     addFrame(frames);
-  //   }
-  
-  //     pasteImage(url, frames[index].children[1]);
-  //     pasteImage(url, canvas);
-  //   })
-  // }  
+  public static setCanvasContent(content: string, context: CanvasRenderingContext2D | null, sizeCanvas: number) {
+    if (context !== null && context) {
+      context.fillStyle = '#fff';
+      context.fillRect(0, 0, sizeCanvas, sizeCanvas);
+
+      if (content) {
+        const image = new Image();
+        image.src = content;
+
+        context.imageSmoothingEnabled = false;
+        context.drawImage(image, 0, 0);
+      }
+    }
+  }
 }
