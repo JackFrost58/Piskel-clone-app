@@ -39,7 +39,7 @@
   border-radius: $radius;
 }
 
-@mixin frame-size($size) {
+@mixin square-block($size) {
   width: $size;
   height: $size;
 }

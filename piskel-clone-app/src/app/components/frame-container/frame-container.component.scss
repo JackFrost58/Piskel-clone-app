@@ -7,7 +7,7 @@
 }
 
 .frame {
-  @include block-size(9rem, 9rem);
+  @include square-block($large-square);
   @include border($shadow-color);
   
   position: relative;
@@ -26,7 +26,7 @@
   }
 
   &-canvas {
-    @include block-size(9rem, 9rem);
+    @include square-block($large-square);
     image-rendering: pixelated;
   }
   
@@ -36,9 +36,10 @@
   }
 
   &-number {
-    @include block-size(2rem, 2rem);
+    @include square-block($small-square);
     @include flex;
     @include flex-center;
+    @include font($default-font);
     position: absolute;
     background-color: $primary;
     color: $white
@@ -62,25 +63,6 @@
   @include border($primary);
 }
 
-.dragContainer {
-  @include block-size(90px, 90px);
-
-  background-color: rgba(35, 245, 28, 0.548);
-}
-
-.frame-dragged {
-  &::before{
-    @include block-size(100px, 100px);
-
-    content:"";
-    position:absolute;
-    left:-3px;
-    top:-3px;
-    border:3px dashed rgba(35, 245, 28, 0.829);
-    border-radius:5px
-  }
-}
-
 .frame-state {
   position: relative;
   top: 0;
@@ -89,7 +71,6 @@
 
 .cdk-drag-preview {
   box-sizing: border-box;
-  border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
               0 8px 10px 1px rgba(0, 0, 0, 0.14),
               0 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -101,4 +82,8 @@
 
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.frame-button {
+  @include font($button-font);
 }

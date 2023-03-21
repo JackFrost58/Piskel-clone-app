@@ -2,17 +2,18 @@
 @import 'vars';
 
 :host {
+  $main-canvas-size: 50rem;
+
   margin: 0 $default-offset;
 
   .canvas-container {
     @include flex(column);
     @include flex-center;
-    @include block-size(100%, 100%);
-    background-color: #808080b0;
+    @include square-block(100%);
   }
 
   .canvas{
-    @include frame-size(50rem);
+    @include square-block($main-canvas-size);
     @include border($border-color);
     image-rendering: pixelated;
     background-color: $white;
