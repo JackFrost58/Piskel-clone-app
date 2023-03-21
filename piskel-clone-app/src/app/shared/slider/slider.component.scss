@@ -51,8 +51,8 @@
     &-title {
       @include flex;
       @include flex-position(space-between, center);
+      @include font($medium-font);
       width: 100%;
-      font-size: 1rem;
     }
   
     &-number {
