@@ -9,7 +9,7 @@ import {ContentCanvas} from '@helpers/content-frame.helper';
 import {SizeService} from '@services/size.service';
 import {ToolCheckHelper} from 'src/app/helpers/tool-check.helper';
 import {NameTools} from '@enums/name-tools.enum';
-import {DEFAULT_COLOR_ERASER} from '@constants/tools.constant';
+import {COLOR_WHITE} from '@constants/tools.constant';
 
 @Component({
   selector: 'canvas-container',
@@ -62,7 +62,7 @@ export class CanvasContainerComponent implements OnInit {
       let err = deltaX - deltaY;
     
       while(true) {
-        ToolCheckHelper.isToolWithColor(tool.nameTool) ? this.context.fillStyle = DEFAULT_COLOR_ERASER : this.context.fillStyle = tool.colorValue;
+        ToolCheckHelper.isToolWithColor(tool.nameTool) ? this.context.fillStyle = COLOR_WHITE : this.context.fillStyle = tool.colorValue;
         this.context?.fillRect(startCoord.x, startCoord.y, tool.penSize, tool.penSize) 
     
         if ((startCoord.x === Number(currentCoord.x)) && (startCoord.y === Number(currentCoord.y))) break;
@@ -74,10 +74,17 @@ export class CanvasContainerComponent implements OnInit {
   }
 
   public canvasMouseDownHandler(e: MouseEvent): void {
-    if (this.toolConfig.colorValue && this.toolConfig.penSize) {
-      this.isDrawing = true;
-      this.startCoordinates = getCoordinates(this.canvas, e);
-      this.useTool(this.startCoordinates, this.startCoordinates, this.toolConfig);
+    switch (this.toolConfig.nameTool) {
+      case NameTools.Eraser:
+      case NameTools.Pen:
+      case NameTools.Stroke:
+        this.isDrawing = true;
+        this.startCoordinates = getCoordinates(this.canvas, e);
+        this.useTool(this.startCoordinates, this.startCoordinates, this.toolConfig);
+        break;
+      case NameTools.Clear:
+        this.clearCanvas();
+        break;
     }
   }
 
@@ -105,7 +112,7 @@ export class CanvasContainerComponent implements OnInit {
     let targetColor;
     let replaceColor;
 
-    if (this.toolConfig.colorValue && this.toolConfig.penSize && this.context !== null) {
+    if (this.context !== null) {
       switch(this.toolConfig.nameTool) {
         case NameTools.Stroke: // add to schema line on draw
           if(!this.isDrawing) return;
@@ -117,8 +124,6 @@ export class CanvasContainerComponent implements OnInit {
           replaceColor = convertColor.hexToRgba(this.toolConfig.colorValue);
           this.bucketPart(targetColor, replaceColor, currentCoordinates);
           break;
-        case NameTools.Clear: //fix onClick because onMove draw px mb better to downClick
-          this.clearCanvas();
       }
     }
     
@@ -128,8 +133,8 @@ export class CanvasContainerComponent implements OnInit {
   
   public clearCanvas(): void {
     if (this.context !== null) {
-      this.context.fillStyle = '#ffffff';
-      this.context.fillRect(0, 0, 32, 32);
+      this.context.fillStyle = COLOR_WHITE;
+      this.context.fillRect(0, 0, this.sizeCanvas, this.sizeCanvas);
     }
   }
   

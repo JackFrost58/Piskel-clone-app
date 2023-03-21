@@ -32,4 +32,4 @@ export const TOOLS: Tool[] = [
   },
 ];
 
-export const DEFAULT_COLOR_ERASER = '#ffffff';
+export const COLOR_WHITE = '#ffffff';
