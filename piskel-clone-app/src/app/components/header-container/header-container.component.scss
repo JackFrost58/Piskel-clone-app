@@ -13,9 +13,9 @@
   }
   
   .title {
+    @include font($medium-font);
     margin: 0;
-    font-size: 20px;
-    text-align: center;
+    font-family: $default-font-family;
   }
 
   .icon {
@@ -29,12 +29,18 @@
 }
 
 .radio {
-  @include flex(column);
   margin: $default-offset-small;
-
 
   &-group {
     @include flex(column);
     margin: $default-offset-small;
   }
+
+  &-label {
+    @include font($medium-font);
+  }
+}
+
+::ng-deep .mdc-form-field {
+  @include font($medium-font)
 }

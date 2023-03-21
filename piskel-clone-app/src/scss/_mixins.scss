@@ -43,3 +43,8 @@
   width: $size;
   height: $size;
 }
+
+@mixin font($size, $family: $default-font-family) {
+  font-family: $family;
+  font-size: $size;
+}
