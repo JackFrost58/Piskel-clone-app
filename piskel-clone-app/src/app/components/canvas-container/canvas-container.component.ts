@@ -3,11 +3,13 @@ import {convertColor} from '@helpers/convert-colors.helper';
 import {getCoordinates} from '@helpers/coordinates.helper';
 import {ConfigTool} from '@interfaces/config-tool.interface';
 import {Point} from '@interfaces/coordinate.interface';
-import {NameTools} from '@components/tools-container/entities/enums';
 import {FrameContentService} from '@services/frame-content.service';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {ContentCanvas} from '@helpers/content-frame.helper';
 import {SizeService} from '@services/size.service';
+import {ToolCheckHelper} from 'src/app/helpers/tool-check.helper';
+import {NameTools} from '@enums/name-tools.enum';
+import {DEFAULT_COLOR_ERASER} from '@constants/tools.constant';
 
 @Component({
   selector: 'canvas-container',
@@ -51,8 +53,8 @@ export class CanvasContainerComponent implements OnInit {
   @ViewChild('canvasElement', {static: true})
   canvas: ElementRef<HTMLCanvasElement>;
 
-  public useTool(startCoord: Point, currentCoord: Point, color: string, penSize: number): void {
-    if (this.context !== null) {    
+  public useTool(startCoord: Point, currentCoord: Point, tool: ConfigTool): void {
+    if (this.context !== null && tool) {    
       const deltaX = Math.abs(currentCoord.x - startCoord.x);
       const deltaY = Math.abs(currentCoord.y - startCoord.y);
       const signX = (startCoord.x < currentCoord.x) ? 1 : -1;
@@ -60,8 +62,8 @@ export class CanvasContainerComponent implements OnInit {
       let err = deltaX - deltaY;
     
       while(true) {
-        this.context.fillStyle = color;
-        this.context?.fillRect(startCoord.x, startCoord.y, penSize, penSize) 
+        ToolCheckHelper.isToolWithColor(tool.nameTool) ? this.context.fillStyle = DEFAULT_COLOR_ERASER : this.context.fillStyle = tool.colorValue;
+        this.context?.fillRect(startCoord.x, startCoord.y, tool.penSize, tool.penSize) 
     
         if ((startCoord.x === Number(currentCoord.x)) && (startCoord.y === Number(currentCoord.y))) break;
         const e2 = 2 * err;
@@ -75,7 +77,7 @@ export class CanvasContainerComponent implements OnInit {
     if (this.toolConfig.colorValue && this.toolConfig.penSize) {
       this.isDrawing = true;
       this.startCoordinates = getCoordinates(this.canvas, e);
-      this.useTool(this.startCoordinates, this.startCoordinates, this.toolConfig.colorValue, this.toolConfig.penSize);
+      this.useTool(this.startCoordinates, this.startCoordinates, this.toolConfig);
     }
   }
 
@@ -88,7 +90,7 @@ export class CanvasContainerComponent implements OnInit {
           currentCoordinates = getCoordinates(this.canvas, e);
           this.startCoordinates = currentCoordinates;
           if(!this.isDrawing) return;
-          this.useTool(this.startCoordinates, currentCoordinates, this.toolConfig.colorValue, this.toolConfig.penSize);
+          this.useTool(this.startCoordinates, currentCoordinates, this.toolConfig);
           break;
         case NameTools.Stroke:
           currentCoordinates = getCoordinates(this.canvas, e);
@@ -107,7 +109,7 @@ export class CanvasContainerComponent implements OnInit {
       switch(this.toolConfig.nameTool) {
         case NameTools.Stroke: // add to schema line on draw
           if(!this.isDrawing) return;
-          this.useTool(this.startCoordinates, this.endCoordinates, this.toolConfig.colorValue, this.toolConfig.penSize);
+          this.useTool(this.startCoordinates, this.endCoordinates, this.toolConfig);
           break;
         case NameTools.Bucket: // fix work bucket for clear list
           currentCoordinates = getCoordinates(this.canvas, e);
@@ -132,7 +134,7 @@ export class CanvasContainerComponent implements OnInit {
   }
   
   //fix method for bucket canvas
-  public bucketPart(targetColor: string, replaceColor: string, coors: Point) {  
+  public bucketPart(targetColor: string, replaceColor: string, coors: Point): void {  
     if (targetColor === replaceColor) return;
   
     const replaceColorHex = convertColor.rgbaToHex(replaceColor);

@@ -1,36 +1,4 @@
-import {NameTools} from "./enums";
-import {ColorCustomPalette, ColorPalette, Tool} from "./interfaces";
-
-export const TOOLS: Tool[] = [
-  {
-    name: NameTools.Bucket,
-    icon: 'format_color_fill',
-    isActive: false
-  },
-  {
-    name: NameTools.Pen,
-    icon: 'draw',
-    isActive: true
-  },
-  {
-    name: NameTools.Stroke,
-    icon: 'border_color',
-    isActive: false
-
-  },
-  {
-    name: NameTools.Clear,
-    icon: 'delete',
-    isActive: false
-
-  },
-  {
-    name: NameTools.Eraser,
-    icon: 'width_full',
-    color: '#ffffff',
-    isActive: false
-  },
-];
+import {ColorCustomPalette, ColorPalette} from "./interfaces";
 
 export const COLORS: ColorPalette[] = [
   {

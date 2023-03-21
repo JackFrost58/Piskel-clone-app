@@ -1,8 +1,10 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Thickness} from '@constants/config-slider.namespace';
+import {TOOLS} from '@constants/tools.constant';
+import {NameTools} from '@enums/name-tools.enum';
 import {ConfigTool} from '@interfaces/config-tool.interface';
-import {COLORS, CUSTOM_COLORS, DEFAULT_COLOR, TOOLS} from './entities/constants';
-import {NameTools} from './entities/enums';
+import {ToolCheckHelper} from 'src/app/helpers/tool-check.helper';
+import {COLORS, CUSTOM_COLORS, DEFAULT_COLOR} from './entities/constants';
 import {Tool} from './entities/interfaces';
 
 @Component({
@@ -43,7 +45,7 @@ export class ToolsComponent implements OnInit {
     this.tools.forEach((tool) => tool.isActive = false);
     tool.isActive = true;
 
-    if (tool.color) {
+    if (tool.color && !ToolCheckHelper.isToolWithColor(tool.name)) {
       this.setColor(tool.color);
     }
 
