@@ -2,13 +2,13 @@
 @import 'vars';
 
 :host {
-  display: flex;
+  @include flex;
   height: 100%;
 
   .tools-container {
     @include flex(column);
+    @include flex-position(space-between);
     @include block-size(18rem, 100%);
-    justify-content: space-between;
     margin: 0 $default-offset-small;
 
     .tools-setting {
@@ -69,10 +69,8 @@
   
     &-title {
       @include flex;
+      @include flex-position(space-between, center);
       width: 100%;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 1rem;
     }
   
     &-number {
@@ -86,7 +84,7 @@
     margin-bottom: $default-offset-small;
 
     .color-box {
-      @include block-size(3rem, 3rem);
+      @include square-block(3rem);
       cursor: pointer;
     }
   }
@@ -94,7 +92,7 @@
   .custom-colors {
     @include flex;
     @include border($border-color);
-    align-items: center;
+    @include flex-position(flex-start, center);
 
     .color-box {
       @include color-box(3rem, 3rem, $default-radius);

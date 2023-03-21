@@ -7,6 +7,6 @@ main {
 
 .wrapper {
   @include flex;
+  @include flex-position(space-around);
   width: 100%;
-  justify-content: space-around;
 }

@@ -7,7 +7,7 @@
     width: 100%;
 
     &-preview {
-      @include frame-size(18rem);
+      @include square-block(18rem);
       @include border;
       
       image-rendering: pixelated;

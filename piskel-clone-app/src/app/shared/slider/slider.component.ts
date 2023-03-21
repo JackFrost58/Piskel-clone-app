@@ -17,7 +17,7 @@ export class SliderComponent implements OnInit {
     this.sliderSize = this.config.min
   }
 
-  public onMouseUpHandler(size: number) {
+  public onMouseUpHandler(size: number): void {
     this.getSize.emit(size);
   }
 }

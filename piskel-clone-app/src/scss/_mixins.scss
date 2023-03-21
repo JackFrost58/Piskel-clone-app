@@ -39,7 +39,12 @@
   border-radius: $radius;
 }
 
-@mixin frame-size($size) {
+@mixin square-block($size) {
   width: $size;
   height: $size;
+}
+
+@mixin font($size, $family: $default-font-family) {
+  font-family: $family;
+  font-size: $size;
 }
