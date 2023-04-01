@@ -3,7 +3,7 @@ import {Thickness} from '@constants/config-slider.namespace';
 import {TOOLS} from '@constants/tools.constant';
 import {NameTools} from '@enums/name-tools.enum';
 import {ConfigTool} from '@interfaces/config-tool.interface';
-import {ToolCheckHelper} from 'src/app/helpers/tool-check.helper';
+import {ToolCheckHelper} from '@helpers/tool-check.helper';
 import {COLORS, CUSTOM_COLORS, DEFAULT_COLOR} from './entities/constants';
 import {Tool} from './entities/interfaces';
 
@@ -24,7 +24,7 @@ export class ToolsComponent implements OnInit {
   public thicknessTools = 1;
 
   public activeTool = {
-    nameTool: (NameTools.Pen) as string,
+    nameTool: (NameTools.Stroke) as string,
     colorValue: this.defaultColor.colorValue,
     penSize: this.thicknessTools
   }

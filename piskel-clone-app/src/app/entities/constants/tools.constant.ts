@@ -10,12 +10,12 @@ export const TOOLS: Tool[] = [
   {
     name: NameTools.Pen,
     icon: 'draw',
-    isActive: true
+    isActive: false
   },
   {
     name: NameTools.Stroke,
     icon: 'border_color',
-    isActive: false
+    isActive: true
 
   },
   {

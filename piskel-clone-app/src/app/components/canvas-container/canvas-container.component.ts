@@ -7,7 +7,7 @@ import {FrameContentService} from '@services/frame-content.service';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {ContentCanvas} from '@helpers/content-frame.helper';
 import {SizeService} from '@services/size.service';
-import {ToolCheckHelper} from 'src/app/helpers/tool-check.helper';
+import {ToolCheckHelper} from '@helpers/tool-check.helper';
 import {NameTools} from '@enums/name-tools.enum';
 import {COLOR_WHITE} from '@constants/tools.constant';
 
@@ -43,6 +43,20 @@ export class CanvasContainerComponent implements OnInit {
     
     this.context = this.canvas.nativeElement.getContext('2d');
 
+    // if (this.context !== null) {
+    //   for (let x = 0; x <= this.sizeCanvas; x += 1) {
+    //     this.context.moveTo(x, 0);
+    //     this.context.lineTo(x, this.sizeCanvas);
+    //     for (let y = 0; y <= this.sizeCanvas; y += 1) {
+    //       this.context.moveTo(0, y);
+    //       this.context.lineTo(this.sizeCanvas, y);
+    //     }
+    //   }
+
+    //   this.context.strokeStyle = 'rgb(20,20,20)'
+    //   this.context.stroke();
+    // }
+
     this.frameContentService.canvasContent
     .pipe(untilDestroyed(this))
     .subscribe((canvasContent: string) => {
@@ -62,24 +76,35 @@ export class CanvasContainerComponent implements OnInit {
       let err = deltaX - deltaY;
     
       while(true) {
+        console.log(currentCoord)
         ToolCheckHelper.isToolWithColor(tool.nameTool) ? this.context.fillStyle = COLOR_WHITE : this.context.fillStyle = tool.colorValue;
-        this.context?.fillRect(startCoord.x, startCoord.y, tool.penSize, tool.penSize) 
-    
+       
+        this.context.fillRect(tool.penSize*startCoord.x, tool.penSize*startCoord.y, tool.penSize, tool.penSize) 
+
         if ((startCoord.x === Number(currentCoord.x)) && (startCoord.y === Number(currentCoord.y))) break;
+        
+        //out of while
         const e2 = 2 * err;
-        if (e2 > -deltaY) { err -= deltaY; startCoord.x  += signX; }
-        if (e2 < deltaX) { err += deltaX; startCoord.y  += signY; }
+        if (e2 > -deltaY) { 
+          err -= deltaY; 
+          startCoord.x  += signX; 
+        }
+        if (e2 < deltaX) { 
+          err += deltaX; 
+          startCoord.y  += signY; 
+        }
       }
     }
   }
 
   public canvasMouseDownHandler(e: MouseEvent): void {
+    console.log(e)
     switch (this.toolConfig.nameTool) {
       case NameTools.Eraser:
       case NameTools.Pen:
       case NameTools.Stroke:
         this.isDrawing = true;
-        this.startCoordinates = getCoordinates(this.canvas, e);
+        this.startCoordinates = getCoordinates(this.canvas, e, this.sizeCanvas, this.toolConfig.penSize);
         this.useTool(this.startCoordinates, this.startCoordinates, this.toolConfig);
         break;
       case NameTools.Clear:
@@ -94,14 +119,12 @@ export class CanvasContainerComponent implements OnInit {
       switch (this.toolConfig.nameTool) {
         case NameTools.Eraser:
         case NameTools.Pen: 
-          currentCoordinates = getCoordinates(this.canvas, e);
-          this.startCoordinates = currentCoordinates;
+          currentCoordinates = getCoordinates(this.canvas, e, this.sizeCanvas, this.toolConfig.penSize);
           if(!this.isDrawing) return;
-          this.useTool(this.startCoordinates, currentCoordinates, this.toolConfig);
+          this.useTool(currentCoordinates, currentCoordinates, this.toolConfig);
           break;
         case NameTools.Stroke:
-          currentCoordinates = getCoordinates(this.canvas, e);
-          this.endCoordinates = currentCoordinates;
+          this.endCoordinates = getCoordinates(this.canvas, e, this.sizeCanvas, this.toolConfig.penSize);
           break;
       }
     }
@@ -119,7 +142,7 @@ export class CanvasContainerComponent implements OnInit {
           this.useTool(this.startCoordinates, this.endCoordinates, this.toolConfig);
           break;
         case NameTools.Bucket: // fix work bucket for clear list
-          currentCoordinates = getCoordinates(this.canvas, e);
+          currentCoordinates = getCoordinates(this.canvas, e, this.sizeCanvas, this.toolConfig.penSize);
           targetColor = this.context.getImageData(currentCoordinates.x, currentCoordinates.y, 1, 1).data.toString();
           replaceColor = convertColor.hexToRgba(this.toolConfig.colorValue);
           this.bucketPart(targetColor, replaceColor, currentCoordinates);
