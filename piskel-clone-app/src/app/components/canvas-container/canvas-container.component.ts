@@ -32,9 +32,7 @@ export class CanvasContainerComponent implements OnInit {
 
   constructor(private frameContentService: FrameContentService, private sizeService: SizeService) {}
 
-  ngOnInit(): void {
-    // this.startCoordinates = {x: 0, y: 0};
-    
+  ngOnInit(): void {    
     this.sizeService.size
     .pipe(untilDestroyed(this))
     .subscribe((newSize: number) => {
@@ -79,8 +77,6 @@ export class CanvasContainerComponent implements OnInit {
         this.clearCanvas();
         break;
     }
-
-    // this.savePrevStateCanvas();
   }
 
   public canvasMouseMoveHandler(event: MouseEvent): void {
@@ -99,13 +95,13 @@ export class CanvasContainerComponent implements OnInit {
         case NameTools.Stroke:
           currentCoordinates = getCoordinates(this.canvas, event, this.sizeCanvas, this.toolConfig.penSize);
 
-          this.brezenhaimLine(this.startCoordinates, currentCoordinates);
+          this.drawStroke(this.startCoordinates, currentCoordinates);
           break;
       }
     }
   }
 
-  public brezenhaimLine(pointStart: Point, pointEnd: Point): void {
+  public drawStroke(pointStart: Point, pointEnd: Point): void {
     this.pointsStroke = []
 
    this.drawPreviousContent();
@@ -139,8 +135,8 @@ export class CanvasContainerComponent implements OnInit {
     }
   }
 
-  public drawSquare(): void {
-    // if(!this.isDrawing) return;
+  public drawSquare(): void {// TODO refactoring
+    if(!this.isDrawing) return;
 
     // this.endCoordinates = getCoordinates(this.canvas, event, this.sizeCanvas, this.toolConfig.penSize);
     if (this.context !== null && this.startCoordinates.x) {
@@ -148,21 +144,21 @@ export class CanvasContainerComponent implements OnInit {
       // this.rects.forEach((rect: any) => {
       //   if (this.context !== null) {
       //     this.context.beginPath();
-      //     // this.useTool(rect.x, rect.y, rect.width)
+      //     this.useTool(rect.x, rect.y, rect.width)
       //     this.context.rect(rect.x, rect.y, rect.width, rect.height);
       //     this.context.strokeStyle = this.toolConfig.colorValue;
       //     this.context.stroke();
       //   }
       // }); 
 
-      // this.context.beginPath();
+      this.context.beginPath();
       // this.context.rect(this.startCoordinates.x, this.startCoordinates.y, this.endCoordinates.x - this.startCoordinates.x, this.endCoordinates.y - this.startCoordinates.y);
-      // this.context.strokeStyle = 'red';
-      // this.context.stroke();
-      // this.context.beginPath();
-      // this.context.fill();
-      // this.context.beginPath();
-      // this.context.fill();
+      this.context.strokeStyle = 'red';
+      this.context.stroke();
+      this.context.beginPath();
+      this.context.fill();
+      this.context.beginPath();
+      this.context.fill();
     }
   }
 
@@ -206,7 +202,6 @@ export class CanvasContainerComponent implements OnInit {
 
       while (queue.length) {
         const node = queue[0];
-        // console.log(node)
         queue.shift();
     
         const rightNode = {
@@ -256,7 +251,6 @@ export class CanvasContainerComponent implements OnInit {
     if (this.context !== null) {
       this.context.fillStyle = COLOR_WHITE;
       this.context.fillRect(0, 0, this.sizeCanvas, this.sizeCanvas);
-      // this.rects = [];
     }
   }
 
