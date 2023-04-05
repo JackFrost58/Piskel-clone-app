@@ -53,13 +53,6 @@ export class CanvasContainerComponent implements OnInit {
   @ViewChild('canvasElement', {static: true})
   canvas: ElementRef<HTMLCanvasElement>;
 
-  public drawPoint(pointCoordinate: Point, tool: ConfigTool): void {
-    if (this.context !== null && tool) {      
-      ToolCheckHelper.isToolWithColor(tool.nameTool) ? this.context.fillStyle = COLOR_WHITE : this.context.fillStyle = tool.colorValue;
-      this.context.fillRect(tool.penSize*pointCoordinate.x, tool.penSize*pointCoordinate.y, tool.penSize, tool.penSize);
-    }
-  }
-
   public canvasMouseDownHandler(event: MouseEvent): void {
     this.toggleMouseButton();
 
@@ -98,6 +91,38 @@ export class CanvasContainerComponent implements OnInit {
           this.drawStroke(this.startCoordinates, currentCoordinates);
           break;
       }
+    }
+  }
+
+  public canvasMouseUpHandler(event: MouseEvent): void {
+    let currentCoordinates;
+    let targetColor;
+    let replaceColor;
+
+    this.toggleMouseButton();
+
+    if (this.context !== null) {
+      switch(this.toolConfig.nameTool) {
+        case NameTools.Stroke:
+          this.addPointCanvas(this.pointsStroke)
+          break;
+        case NameTools.Bucket: // fix work bucket for clear list
+          currentCoordinates = getCoordinates(this.canvas, event, this.sizeCanvas, this.toolConfig.penSize);
+          targetColor = this.context.getImageData(currentCoordinates.x, currentCoordinates.y, 1, 1).data.toString();
+          replaceColor = convertColor.hexToRgba(this.toolConfig.colorValue);
+          this.bucketPart(targetColor, replaceColor, currentCoordinates);
+          break;
+      }
+    }
+    
+    this.isDrawing = false;
+    this.frameContentService.setContentFrame(this.canvas.nativeElement.toDataURL());
+  }
+
+  public drawPoint(pointCoordinate: Point, tool: ConfigTool): void {
+    if (this.context !== null && tool) {      
+      ToolCheckHelper.isToolWithColor(tool.nameTool) ? this.context.fillStyle = COLOR_WHITE : this.context.fillStyle = tool.colorValue;
+      this.context.fillRect(tool.penSize*pointCoordinate.x, tool.penSize*pointCoordinate.y, tool.penSize, tool.penSize);
     }
   }
 
@@ -160,31 +185,6 @@ export class CanvasContainerComponent implements OnInit {
       this.context.beginPath();
       this.context.fill();
     }
-  }
-
-  public canvasMouseUpHandler(event: MouseEvent): void {
-    let currentCoordinates;
-    let targetColor;
-    let replaceColor;
-
-    this.toggleMouseButton();
-
-    if (this.context !== null) {
-      switch(this.toolConfig.nameTool) {
-        case NameTools.Stroke:
-          this.addPointCanvas(this.pointsStroke)
-          break;
-        case NameTools.Bucket: // fix work bucket for clear list
-          currentCoordinates = getCoordinates(this.canvas, event, this.sizeCanvas, this.toolConfig.penSize);
-          targetColor = this.context.getImageData(currentCoordinates.x, currentCoordinates.y, 1, 1).data.toString();
-          replaceColor = convertColor.hexToRgba(this.toolConfig.colorValue);
-          this.bucketPart(targetColor, replaceColor, currentCoordinates);
-          break;
-      }
-    }
-    
-    this.isDrawing = false;
-    this.frameContentService.setContentFrame(this.canvas.nativeElement.toDataURL());
   }
   
   //fix method for bucket canvas
