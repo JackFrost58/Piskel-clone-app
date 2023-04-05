@@ -3,8 +3,10 @@ import {Point} from "@interfaces/coordinate.interface";
 
 export function getCoordinates(canvas: ElementRef, event: MouseEvent, canvasSize: number, penSize: number): Point {
   const rect = canvas?.nativeElement.getBoundingClientRect();
-  const x = Math.floor((event.clientX - rect.left) / (penSize * (canvas.nativeElement.clientWidth / canvasSize)));
-  const y = Math.floor((event.clientY - rect.top) / (penSize * (canvas.nativeElement.clientWidth / canvasSize)));
+  const countSquersCanvas = penSize * (canvas.nativeElement.clientWidth / canvasSize);
 
-  return {x, y};
+  return {
+    x: Math.floor((event.clientX - rect.left) / countSquersCanvas),
+    y: Math.floor((event.clientY - rect.top) / countSquersCanvas)
+  };
 }
