@@ -83,7 +83,6 @@ export class CanvasContainerComponent implements OnInit {
           if(!this.isDrawing) return;
           this.drawPoint(currentCoordinates, this.toolConfig);
           this.addPointCanvas([{...currentCoordinates, tool: {...this.toolConfig}}]);
-
           break;
         case NameTools.Stroke:
           currentCoordinates = getCoordinates(this.canvas, event, this.sizeCanvas, this.toolConfig.penSize);
@@ -97,7 +96,6 @@ export class CanvasContainerComponent implements OnInit {
   public canvasMouseUpHandler(event: MouseEvent): void {
     let currentCoordinates;
     let targetColor;
-    let replaceColor;
 
     this.toggleMouseButton();
 
@@ -106,11 +104,11 @@ export class CanvasContainerComponent implements OnInit {
         case NameTools.Stroke:
           this.addPointCanvas(this.pointsStroke)
           break;
-        case NameTools.Bucket: // fix work bucket for clear list
+        case NameTools.Bucket:
           currentCoordinates = getCoordinates(this.canvas, event, this.sizeCanvas, this.toolConfig.penSize);
           targetColor = this.context.getImageData(currentCoordinates.x, currentCoordinates.y, 1, 1).data.toString();
-          replaceColor = convertColor.hexToRgba(this.toolConfig.colorValue);
-          this.bucketPart(targetColor, replaceColor, currentCoordinates);
+          
+          this.fillSegment(targetColor, this.toolConfig.colorValue, currentCoordinates);
           break;
       }
     }
@@ -187,62 +185,45 @@ export class CanvasContainerComponent implements OnInit {
     }
   }
   
-  //fix method for bucket canvas
-  public bucketPart(targetColor: string, replaceColor: string, coors: Point): void {  
+  public fillSegment(targetColor: string, replaceColor: string, coors: Point): void {
     if (targetColor === replaceColor) return;
-  
-    const replaceColorHex = convertColor.rgbaToHex(replaceColor);
-    
+      
     if(this.context !== null) {
-      this.context.fillStyle = replaceColorHex;
+      this.context.fillStyle = replaceColor;
       this.context.fillRect(coors.x, coors.y, 1, 1);
       
       const queue: Point[] = [];
       queue.push(coors);
-
+      
       while (queue.length) {
-        const node = queue[0];
+        const {x, y} = queue[0];
         queue.shift();
     
-        const rightNode = {
-          x: node.x + 1,
-          y: node.y
-        };
+        const coordinates = [
+          {
+            x: x + 1,
+            y: y
+          },
+          {
+            x: x - 1,
+            y: y
+          },
+          {
+            x: x,
+            y: y + 1
+          },
+          {
+            x: x,
+            y: y - 1 
+          }
+        ];
 
-        const leftNode = {
-          x: node.x - 1,
-          y: node.y
-        };
-
-        const bottomNode = {
-          x: node.x,
-          y: node.y + 1
-        };
-
-        const topNode = {
-          x: node.x,
-          y: node.y - 1 
-        };
-    
-        if (this.context.getImageData(rightNode.x, rightNode.y, 1, 1).data.toString() === targetColor) {
-          this.context.fillRect(rightNode.x, rightNode.y, 1, 1);
-          queue.push(rightNode);
-        }
-        
-        if (this.context.getImageData(leftNode.x, leftNode.y, 1, 1).data.toString() === targetColor) {
-          this.context.fillRect(leftNode.x, leftNode.y, 1, 1);
-          queue.push(leftNode);
-        }
-        
-        if (this.context.getImageData(bottomNode.x, bottomNode.y, 1, 1).data.toString() === targetColor) {
-          this.context.fillRect(bottomNode.y, bottomNode.y, 1, 1);
-          queue.push(bottomNode);
-        }
-        
-        if (this.context.getImageData(topNode.x, topNode.y, 1, 1).data.toString() === targetColor) {
-          this.context.fillRect(topNode.x, topNode.y, 1, 1);
-          queue.push(topNode);
-        }
+        coordinates.forEach((coordinate) => {
+          if (this.context!.getImageData(coordinate.x, coordinate.y, 1, 1).data.toString() === targetColor && x >= 0 && y >= 0 && x < this.sizeCanvas && y < this.sizeCanvas) {
+            this.context!.fillRect(coordinate.x, coordinate.y, 1, 1);
+            queue.push(coordinate);
+          }
+        })
       }
     }
   }
