@@ -10,12 +10,12 @@ export const TOOLS: Tool[] = [
   {
     name: NameTools.Pen,
     icon: 'draw',
-    isActive: false
+    isActive: true
   },
   {
     name: NameTools.Stroke,
     icon: 'border_color',
-    isActive: true
+    isActive: false
 
   },
   {
@@ -30,6 +30,11 @@ export const TOOLS: Tool[] = [
     color: '#ffffff',
     isActive: false
   },
+  {
+    name: NameTools.Rect,
+    icon: 'rectangle',
+    isActive: false
+  }
 ];
 
 export const COLOR_WHITE = '#ffffff';

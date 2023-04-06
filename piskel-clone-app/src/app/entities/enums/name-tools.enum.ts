@@ -3,5 +3,6 @@ export enum NameTools {
   Bucket = 'Paint Bucket',
   Eraser = 'Eraser',
   Clear = 'Clear',
-  Stroke = 'Stroke'
+  Stroke = 'Stroke',
+  Rect = 'Rectangle',
 }
