@@ -44,7 +44,7 @@ export const COLORS: ColorPalette[] = [
     colorValue: '#00a8f3'
   },
   {
-    colorValue: '3f48cc'
+    colorValue: '#3f48cc'
   },
   {
     colorValue: '#b83dba'
