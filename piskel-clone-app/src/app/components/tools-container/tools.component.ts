@@ -24,7 +24,7 @@ export class ToolsComponent implements OnInit {
   public thicknessTools = 1;
 
   public activeTool = {
-    nameTool: (NameTools.Stroke) as string,
+    nameTool: (NameTools.Pen) as string,
     colorValue: this.defaultColor.colorValue,
     penSize: this.thicknessTools
   }
